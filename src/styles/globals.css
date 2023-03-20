@@ -16,6 +16,11 @@ body {
   letter-spacing: -0.25px;
   color: #333;
   background-color: #fff;
+  height: 100%;
+}
+
+#__next {
+  height: 100%;
 }
 
 a {
