@@ -1,0 +1,72 @@
+[
+  {
+    "_id": "6419a63c8ef80f6beb4f2ae6",
+    "views": "0",
+    "writer": "64171ba75fb0ff93d57ab2bd",
+    "title": "Test Video",
+    "description": "Test Video",
+    "privacy": "1",
+    "filePath": "uploads/1679402119804_-142579.mp4",
+    "category": "1",
+    "duration": "45.16",
+    "thumbnail": "uploads/thumbnails/thumbnail-1679402119804_-142579_1.png",
+    "createdAt": "2023-03-21T12:42:36.431+00:00",
+    "updatedAt": "2023-03-21T12:42:36.431+00:00"
+  },
+  {
+    "_id": "6419a72a8ef80f6beb4f2aef",
+    "views": "10",
+    "writer": "64171ba75fb0ff93d57ab2bd",
+    "title": "Test Video",
+    "description": "Test Video",
+    "privacy": "1",
+    "filePath": "uploads/1679402119804_-142579.mp4",
+    "category": "1",
+    "duration": "45.16",
+    "thumbnail": "uploads/thumbnails/thumbnail-1679402119804_-142579_1.png",
+    "createdAt": "2023-03-21T12:42:36.431+00:00",
+    "updatedAt": "2023-03-21T12:42:36.431+00:00"
+  },
+  {
+    "_id": "641a64e9b7db6d4b47742ac7",
+    "views": "0",
+    "writer": "6419a6c88ef80f6beb4f2aec",
+    "title": "영상 테스트",
+    "description": "영상테스트입니다ㅎㅎㅎㅎ",
+    "privacy": "1",
+    "filePath": "uploads/1679402775896_01_아이디 검색 기능 구현.mp4",
+    "category": "0",
+    "duration": "11.008",
+    "thumbnail": "uploads/thumbnails/thumbnail-1679402775896_01_아이디 검색 기능 구혀…",
+    "createdAt": "2023-03-21T12:46:34.168+00:00",
+    "updatedAt": "2023-03-21T12:46:34.168+00:00"
+  },
+  {
+    "_id": "641a64e9b7db6d4b47742ac9",
+    "views": "0",
+    "writer": "6419a6c88ef80f6beb4f2aec",
+    "title": "영상 테스트",
+    "description": "영상테스트입니다ㅎㅎㅎㅎ",
+    "privacy": "1",
+    "filePath": "uploads/1679402775896_01_아이디 검색 기능 구현.mp4",
+    "category": "0",
+    "duration": "11.008",
+    "thumbnail": "uploads/thumbnails/thumbnail-1679402775896_01_아이디 검색 기능 구혀…",
+    "createdAt": "2023-03-22T02:16:09.009+00:00",
+    "updatedAt": "2023-03-22T02:16:09.009+00:00"
+  },
+  {
+    "_id": "641a64e9b7db6d4b42742ac9",
+    "views": "0",
+    "writer": "6419a6c88ef80f6beb4f2aec",
+    "title": "영상 테스트",
+    "description": "영상테스트입니다ㅎㅎㅎㅎ",
+    "privacy": "0",
+    "filePath": "uploads/1679402775896_01_아이디 검색 기능 구현.mp4",
+    "category": "0",
+    "duration": "11.008",
+    "thumbnail": "uploads/thumbnails/thumbnail-1679402775896_01_아이디 검색 기능 구혀…",
+    "createdAt": "2023-03-22T02:16:09.009+00:00",
+    "updatedAt": "2023-03-22T02:16:09.009+00:00"
+  }
+]
