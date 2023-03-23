@@ -12,7 +12,7 @@ const Layout = ({ children }: LayoutProps) => {
   return (
     <div className="h-full">
       <NavBar setIsAsideOpen={setIsAsideOpen} />
-      <div className="flex h-[calc(100%-53px)]">
+      <div className="flex h-[calc(100%-62px)]">
         <Aside isAsideOpen={isAsideOpen} />
         {children}
       </div>

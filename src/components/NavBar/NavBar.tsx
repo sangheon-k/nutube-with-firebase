@@ -30,7 +30,7 @@ const NavBar = ({ setIsAsideOpen }: NavBarProps) => {
         </Link>
       </div>
 
-      <div>
+      <div className="relative">
         <button
           type="button"
           onClick={handleProfileClick}
