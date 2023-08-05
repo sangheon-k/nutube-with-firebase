@@ -3,6 +3,7 @@ const nextConfig = {
   reactStrictMode: true,
   images: {
     domains: ['plchldr.co'],
+    unoptimized: true, // export 설정
   },
   webpack: (config) => {
     config.module.rules.push({
