@@ -25,6 +25,8 @@ const VideoCard = ({ video }: VideoProps) => {
         <Image
           className="w-full"
           src="https://i.ytimg.com/vi/qew27BNl7io/maxresdefault.jpg"
+          width={200}
+          height={100}
           alt="img"
         />
       </Link>
