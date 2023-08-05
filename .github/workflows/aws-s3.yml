@@ -28,8 +28,4 @@ jobs:
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        run: |
-          aws s3 sync \
-          --region ap-northeast-2 \
-          out s3://fe-63-shinnh2-s3 \
-          --delete # 업로드시 삭제된 파일이 있다면, 버킷에도 적용
+        run: aws s3 sync --delete --region ap-northeast-2 out s3://${{ secrets.AWS_BUCKET_NAME }} # 업로드시 삭제된 파일이 있다면, 버킷에도 적용
