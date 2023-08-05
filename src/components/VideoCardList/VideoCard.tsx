@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import Link from 'next/link';
 
 interface VideoProps {
@@ -21,10 +22,10 @@ const VideoCard = ({ video }: VideoProps) => {
   return (
     <div className="relative m-3 mb-8 overflow-hidden border-gray-800 cursor-pointer">
       <Link href="#" className="block overflow-hidden rounded-lg">
-        <img
+        <Image
           className="w-full"
           src="https://i.ytimg.com/vi/qew27BNl7io/maxresdefault.jpg"
-          alt=""
+          alt="img"
         />
       </Link>
       {/* <div className="absolute top-0 right-0 p-1 px-2 m-1 text-xs font-bold text-gray-200 bg-red-500 rounded badge">

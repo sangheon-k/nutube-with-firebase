@@ -12,7 +12,7 @@ export const useAuth = () => {
     if (!isLoggedIn) {
       router.push('/login');
     }
-  }, []);
+  }, [isLoggedIn, router]);
 
   return { isLoggedIn };
 };

@@ -122,7 +122,7 @@ const LoginPage = () => {
             </button>
           </div>
           <p className="flex flex-col items-center justify-center mt-10 text-center text-gray-500 text-md">
-            <span>Don't have an account?</span>
+            <span>Don&rsquo;t have an account?</span>
             <a
               href="#"
               className="text-indigo-400 no-underline transition duration-300 ease-in cursor-pointer hover:text-blue-500 hover:underline"
