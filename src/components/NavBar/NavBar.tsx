@@ -26,7 +26,7 @@ const NavBar = ({ setIsAsideOpen }: NavBarProps) => {
           <GrMenu />
         </button>
         <Link href="/" className="block ml-2 text-3xl font-bold text-red-500">
-          Nutube
+          Nutube!!
         </Link>
       </div>
 
