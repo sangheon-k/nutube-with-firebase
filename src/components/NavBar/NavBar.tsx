@@ -30,7 +30,8 @@ const NavBar = ({ setIsAsideOpen }: NavBarProps) => {
         </Link>
       </div>
 
-      <div className="relative">
+      <div className="relative flex items-center gap-4">
+        <Link href="/login">Login</Link>
         <button
           type="button"
           onClick={handleProfileClick}
