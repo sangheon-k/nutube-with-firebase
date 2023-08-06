@@ -4,7 +4,7 @@
 yarn dev
 ```
 
-deploy with ssl link : https://nutube.shop/
+url : https://nutube.shop/
 
 <br />
 
