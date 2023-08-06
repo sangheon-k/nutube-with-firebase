@@ -4,7 +4,7 @@
 yarn dev
 ```
 
-deploy link : http://s3-nutube.s3-website.ap-northeast-2.amazonaws.com/
+deploy with ssl link : https://nutube.shop/
 
 <br />
 
