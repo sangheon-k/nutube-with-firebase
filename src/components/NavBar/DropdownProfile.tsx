@@ -4,7 +4,7 @@ import { GrLogout } from 'react-icons/gr';
 
 const DropdownProfile = () => {
   return (
-    <div className="absolute z-10 w-48 mt-1 bg-white border border-gray-200 divide-y divide-gray-200 rounded-md shadow-md right-2">
+    <div className="absolute right-0 z-10 w-48 mt-1 bg-white border border-gray-200 divide-y divide-gray-200 rounded-md shadow-md top-10">
       <div className="flex items-center p-4 space-x-2">
         <Image
           src="https://plchldr.co/i/40x40?text=T"
