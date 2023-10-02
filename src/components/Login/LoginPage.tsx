@@ -1,11 +1,14 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { auth } from '../../../firebase';
 import GoogleLoginBtn from '../GoogleLoginBtn';
 import { useRouter } from 'next/router';
+import Link from 'next/link';
+import LoadingScreen from '../LoadingScreen/LoadingScreen';
 
 const LoginPage = () => {
   const user = auth.currentUser;
   const router = useRouter();
+  const [isLoading, setLoading] = useState(false);
 
   useEffect(() => {
     if (user) {
@@ -67,14 +70,15 @@ const LoginPage = () => {
           </a>
         </div> */}
         <div className="flex items-center justify-center space-x-2">
-          <span className="w-16 h-px bg-gray-300"></span>
+          <span className="w-24 h-px bg-gray-300"></span>
           <span className="font-normal text-gray-400">or continue with</span>
-          <span className="w-16 h-px bg-gray-300"></span>
+          <span className="w-24 h-px bg-gray-300"></span>
         </div>
-        <form className="mt-8 space-y-6" action="#" method="POST">
+        <form className="mt-8 space-y-7" action="#" method="POST">
           <input type="hidden" name="remember" value="true" />
-          <div className="relative">
-            <div className="absolute mt-4 right-3">
+
+          <div className="relative mt-4">
+            <div className="absolute top-1/2 right-3">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="w-6 h-6 text-green-500"
@@ -90,27 +94,31 @@ const LoginPage = () => {
                 ></path>
               </svg>
             </div>
-            <label className="ml-3 text-sm font-bold tracking-wide text-gray-700">
+            <label className="ml-2 text-sm font-bold tracking-wide text-gray-700 ">
               Email
             </label>
             <input
-              className="w-full px-4 py-4 text-base border-b border-gray-300 focus:outline-none rounded-2xl focus:border-indigo-500"
-              type=""
+              className="w-full px-4 py-3 border-b border-gray-300 focus:outline-none rounded-2xl focus:border-indigo-500"
+              type="email"
               placeholder="mail@gmail.com"
               value="mail@gmail.com"
+              required
             />
           </div>
-          <div className="content-center mt-8">
-            <label className="ml-3 text-sm font-bold tracking-wide text-gray-700">
+
+          <div className="mt-4">
+            <label className="ml-2 text-sm font-bold tracking-wide text-gray-700 ">
               Password
             </label>
             <input
-              className="content-center w-full px-4 py-4 text-base border-b border-gray-300 rounded-2xl focus:outline-none focus:border-indigo-500"
-              type=""
+              className="w-full px-4 py-3 border-b border-gray-300 rounded-2xl focus:outline-none focus:border-indigo-500"
+              type="password"
               placeholder="Enter your password"
               value="*****|"
+              required
             />
           </div>
+
           <div className="flex items-center justify-between">
             <div className="flex items-center">
               <input
@@ -132,7 +140,8 @@ const LoginPage = () => {
               </a>
             </div>
           </div>
-          <div>
+
+          {/* <div>
             <button
               type="submit"
               className="flex justify-center w-full p-4 font-semibold tracking-wide text-gray-100 transition duration-500 ease-in rounded-full shadow-lg cursor-pointer bg-gradient-to-r from-indigo-500 to-blue-600 hover:bg-gradient-to-l hover:from-blue-500 hover:to-indigo-600"
@@ -142,12 +151,30 @@ const LoginPage = () => {
           </div>
           <p className="flex flex-col items-center justify-center mt-10 text-center text-gray-500 text-md">
             <span>Don&rsquo;t have an account?</span>
-            <a
-              href="#"
+            <Link
+              href="/signup"
               className="text-indigo-400 no-underline transition duration-300 ease-in cursor-pointer hover:text-blue-500 hover:underline"
             >
               Sign up
-            </a>
+            </Link>
+          </p> */}
+
+          <div className="mt-12">
+            <button
+              type="submit"
+              className="flex justify-center w-full p-4 font-semibold tracking-wide text-gray-100 transition duration-500 ease-in rounded-full shadow-lg cursor-pointer bg-gradient-to-r from-red-400 to-rose-700 hover:from-rose-700 hover:to-red-400"
+            >
+              {isLoading ? <LoadingScreen size="small" /> : 'Sign in'}
+            </button>
+          </div>
+          <p className="flex flex-col items-center justify-center text-center text-gray-500 mt-9 text-md">
+            <span>Don&rsquo;t have an account?</span>
+            <Link
+              href="/signup"
+              className="text-indigo-400 no-underline transition duration-300 ease-in cursor-pointer hover:text-blue-500 hover:underline"
+            >
+              Sign up
+            </Link>
           </p>
         </form>
       </div>

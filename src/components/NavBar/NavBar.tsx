@@ -41,15 +41,21 @@ const NavBar = ({ setIsAsideOpen }: NavBarProps) => {
           >
             <Image
               src="https://plchldr.co/i/40x40?text=T"
+              className="w-6 h-6 text-green-500"
               alt="Avatar"
               width={40}
               height={40}
             />
           </button>
         ) : (
-          <Link href="/login" className="mr-4">
-            Login
-          </Link>
+          <>
+            <Link href="/login" className="mr-2">
+              Login
+            </Link>
+            <Link href="/signup" className="mr-4">
+              Signup
+            </Link>
+          </>
         )}
         {isProfileOpen && (
           <DropdownProfile setIsProfileOpen={setIsProfileOpen} />
