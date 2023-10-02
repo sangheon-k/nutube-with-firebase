@@ -3,10 +3,21 @@ import Layout from '@/components/Layout/Layout';
 import type { AppProps } from 'next/app';
 import '@/styles/globals.css';
 import { QueryClient, QueryClientProvider } from 'react-query';
+import { auth } from '../../firebase';
+import { useEffect, useState } from 'react';
 
 const queryClient = new QueryClient();
 
 export default function App({ Component, pageProps }: AppProps) {
+  const [isLoading, setLoading] = useState(true);
+  const init = async () => {
+    const result = await auth.authStateReady();
+    setLoading(false);
+  };
+  useEffect(() => {
+    init();
+  }, []);
+
   return (
     <QueryClientProvider client={queryClient}>
       <Head>
