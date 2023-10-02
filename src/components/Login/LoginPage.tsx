@@ -1,6 +1,18 @@
+import { useEffect } from 'react';
+import { auth } from '../../../firebase';
 import GoogleLoginBtn from '../GoogleLoginBtn';
+import { useRouter } from 'next/router';
 
 const LoginPage = () => {
+  const user = auth.currentUser;
+  const router = useRouter();
+
+  useEffect(() => {
+    if (user) {
+      router.push('/');
+    }
+  }, []);
+
   return (
     <div className="w-full p-8 bg-white md:flex md:items-center md:justify-center md:h-full md:p-10 lg:p-14 sm:rounded-lg md:rounded-none">
       <div className="w-full max-w-md space-y-8">
