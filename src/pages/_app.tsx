@@ -3,10 +3,22 @@ import Layout from '@/components/Layout/Layout';
 import type { AppProps } from 'next/app';
 import '@/styles/globals.css';
 import { QueryClient, QueryClientProvider } from 'react-query';
+import { auth } from '../../firebase';
+import { useEffect, useState } from 'react';
+import LoadingScreen from '@/components/LoadingScreen/LoadingScreen';
 
 const queryClient = new QueryClient();
 
 export default function App({ Component, pageProps }: AppProps) {
+  const [isLoading, setLoading] = useState(true);
+  const init = async () => {
+    const result = await auth.authStateReady();
+    setLoading(false);
+  };
+  useEffect(() => {
+    init();
+  }, []);
+
   return (
     <QueryClientProvider client={queryClient}>
       <Head>
@@ -15,9 +27,13 @@ export default function App({ Component, pageProps }: AppProps) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Layout>
-        <Component {...pageProps} />
-      </Layout>
+      {isLoading ? (
+        <LoadingScreen />
+      ) : (
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
+      )}
     </QueryClientProvider>
   );
 }
