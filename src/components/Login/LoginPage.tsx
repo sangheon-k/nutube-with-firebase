@@ -1,4 +1,4 @@
-import Image from 'next/image';
+import GoogleLoginBtn from '../GoogleLoginBtn';
 
 const LoginPage = () => {
   return (
@@ -6,13 +6,14 @@ const LoginPage = () => {
       <div className="w-full max-w-md space-y-8">
         <div className="text-center">
           <h2 className="mt-6 text-3xl font-bold text-gray-900">
-            Welcom Back!
+            Welcome Back!
           </h2>
           <p className="mt-2 text-sm text-gray-500">
             Please sign in to your account
           </p>
         </div>
-        <div className="flex flex-row items-center justify-center space-x-3">
+        <GoogleLoginBtn />
+        {/* <div className="flex flex-row items-center justify-center space-x-3">
           <a
             href="https://www.behance.net/ajeeshmon"
             target="_blank"
@@ -52,11 +53,11 @@ const LoginPage = () => {
               height={16}
             />
           </a>
-        </div>
+        </div> */}
         <div className="flex items-center justify-center space-x-2">
-          <span className="w-16 h-px bg-gray-200"></span>
-          <span className="font-normal text-gray-300">or continue with</span>
-          <span className="w-16 h-px bg-gray-200"></span>
+          <span className="w-16 h-px bg-gray-300"></span>
+          <span className="font-normal text-gray-400">or continue with</span>
+          <span className="w-16 h-px bg-gray-300"></span>
         </div>
         <form className="mt-8 space-y-6" action="#" method="POST">
           <input type="hidden" name="remember" value="true" />
@@ -81,7 +82,7 @@ const LoginPage = () => {
               Email
             </label>
             <input
-              className="w-full px-4 py-2 text-base border-b border-gray-300 focus:outline-none rounded-2xl focus:border-indigo-500"
+              className="w-full px-4 py-4 text-base border-b border-gray-300 focus:outline-none rounded-2xl focus:border-indigo-500"
               type=""
               placeholder="mail@gmail.com"
               value="mail@gmail.com"
@@ -92,7 +93,7 @@ const LoginPage = () => {
               Password
             </label>
             <input
-              className="content-center w-full px-4 py-2 text-base border-b border-gray-300 rounded-2xl focus:outline-none focus:border-indigo-500"
+              className="content-center w-full px-4 py-4 text-base border-b border-gray-300 rounded-2xl focus:outline-none focus:border-indigo-500"
               type=""
               placeholder="Enter your password"
               value="*****|"
