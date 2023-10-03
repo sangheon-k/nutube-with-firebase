@@ -5,9 +5,16 @@ interface InputProps {
   id: string;
   type?: string;
   placeholder?: string;
+  required?: boolean;
 }
 
-const Input = ({ label, id, type = 'text', placeholder = '' }: InputProps) => {
+const Input = ({
+  label,
+  id,
+  type = 'text',
+  placeholder = '',
+  required,
+}: InputProps) => {
   return (
     <div className="pt-4 mb-5">
       <label
@@ -15,6 +22,9 @@ const Input = ({ label, id, type = 'text', placeholder = '' }: InputProps) => {
         className="mb-3 block text-xl font-semibold text-[#07074D]"
       >
         {label}
+        {required ? (
+          <span className="inline-block ml-1 text-base text-rose-400">*</span>
+        ) : null}
       </label>
       <input
         type={type}

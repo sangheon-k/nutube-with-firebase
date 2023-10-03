@@ -7,6 +7,7 @@ interface TextAreaProps {
   placeholder?: string;
   rows?: number;
   maxLength?: number;
+  required?: boolean;
 }
 
 const TextArea = ({
@@ -15,6 +16,7 @@ const TextArea = ({
   placeholder = '',
   rows = 6,
   maxLength = 200,
+  required,
 }: TextAreaProps) => {
   return (
     <div className="pt-4 mb-5">
@@ -23,6 +25,9 @@ const TextArea = ({
         className="mb-3 block text-xl font-semibold text-[#07074D]"
       >
         {label}
+        {required ? (
+          <span className="inline-block ml-1 text-base text-rose-400">*</span>
+        ) : null}
       </label>
       <textarea
         rows={rows}

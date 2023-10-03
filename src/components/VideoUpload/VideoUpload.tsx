@@ -13,6 +13,7 @@ const VideoUploadPage = () => {
             type="email"
             id="email"
             placeholder="Title"
+            required={true}
           />
 
           <div className="flex ">
@@ -62,12 +63,12 @@ const VideoUploadPage = () => {
                 Category
               </label>
               <select className="bg-[url('/ico_arrow_down.svg')] bg-[right_10px_top_50%] bg-no-repeat w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-4 text-base font-medium text-[#6B7280] outline-none focus:border-rose-400 focus:shadow-md appearance-none cursor-pointer">
-                <option value="">Value</option>
-                <option value="Home & Furniture">Home & Furniture</option>
-                <option value="Living & Fun">Living & Fun</option>
-                <option value="Movie & Trailer">Movie & Trailer</option>
-                <option value="Kids & Family">Kids & Family</option>
-                <option value="Etc">Etc</option>
+                <option value={0}>None</option>
+                <option value={1}>Home & Furniture</option>
+                <option value={2}>Living & Fun</option>
+                <option value={3}>Movie & Trailer</option>
+                <option value={4}>Kids & Family</option>
+                <option value={5}>Etc</option>
               </select>
             </div>
           </div>
