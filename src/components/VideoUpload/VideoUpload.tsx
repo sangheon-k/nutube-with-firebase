@@ -1,4 +1,5 @@
 import React from 'react';
+import * as Form from '@/components/Form';
 
 const VideoUploadPage = () => {
   const onSubmit = async () => {};
@@ -7,21 +8,12 @@ const VideoUploadPage = () => {
     <div className="flex items-start justify-center w-full p-12 overflow-y-auto">
       <div className="mx-auto w-full max-w-[550px] bg-white">
         <form className="py-6 px-9" onSubmit={onSubmit}>
-          <div className="pt-4 mb-5">
-            <label
-              htmlFor="email"
-              className="mb-3 block text-xl font-semibold text-[#07074D]"
-            >
-              Title
-            </label>
-            <input
-              type="email"
-              name="email"
-              id="email"
-              placeholder="Title"
-              className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-rose-400 focus:shadow-md"
-            />
-          </div>
+          <Form.Input
+            label="Title"
+            type="email"
+            id="email"
+            placeholder="Title"
+          />
 
           <div className="flex ">
             <div className="w-1/2 pt-4 mb-5">
@@ -172,22 +164,11 @@ const VideoUploadPage = () => {
             </div>
           </div>
 
-          <div className="pt-4 mb-5">
-            <label
-              htmlFor="description"
-              className="mb-3 block text-xl font-semibold text-[#07074D]"
-            >
-              Description
-            </label>
-            <textarea
-              rows={6}
-              maxLength={200}
-              name="description"
-              id="description"
-              placeholder="Please enter a description for your video"
-              className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-rose-400 focus:shadow-md resize-none"
-            />
-          </div>
+          <Form.TextArea
+            label="Description"
+            id="description"
+            placeholder="Please enter a description for your video"
+          />
 
           <div className="pt-6">
             <button className="w-full px-8 py-3 text-base font-semibold text-center text-white bg-red-500 rounded-md outline-none hover:shadow-form">
