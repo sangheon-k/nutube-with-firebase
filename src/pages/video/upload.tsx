@@ -1,5 +1,7 @@
-const VideoUploadPage = () => {
-  return <div>VideoUploadPage</div>;
+import VideoUploadPage from '@/components/VideoUpload/VideoUpload';
+
+const VideoUpload = () => {
+  return <VideoUploadPage />;
 };
 
-export default VideoUploadPage;
+export default VideoUpload;
