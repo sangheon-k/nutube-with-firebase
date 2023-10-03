@@ -4,11 +4,41 @@ import GoogleLoginBtn from '../GoogleLoginBtn';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import LoadingScreen from '../LoadingScreen/LoadingScreen';
+import { signInWithEmailAndPassword } from 'firebase/auth';
+import * as yup from 'yup';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { FieldValues, useForm } from 'react-hook-form';
+
+const schema = yup
+  .object({
+    email: yup.string().required(),
+    password: yup.string().required(),
+    remember: yup.boolean(),
+  })
+  .required();
 
 const LoginPage = () => {
   const user = auth.currentUser;
   const router = useRouter();
   const [isLoading, setLoading] = useState(false);
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({ resolver: yupResolver(schema) });
+
+  const onSubmit = async (data: FieldValues) => {
+    try {
+      setLoading(true);
+      const { email, password } = data;
+      await signInWithEmailAndPassword(auth, email, password);
+      router.push('/');
+    } catch (e) {
+      console.error(e);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
     if (user) {
@@ -74,70 +104,76 @@ const LoginPage = () => {
           <span className="font-normal text-gray-400">or continue with</span>
           <span className="w-24 h-px bg-gray-300"></span>
         </div>
-        <form className="mt-8 space-y-7" action="#" method="POST">
+        <form className="mt-8 space-y-7" onSubmit={handleSubmit(onSubmit)}>
           <input type="hidden" name="remember" value="true" />
 
-          <div className="relative mt-4">
-            <div className="absolute top-1/2 right-3">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="w-6 h-6 text-green-500"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
-                ></path>
-              </svg>
+          <div className="mt-4">
+            <div className="relative">
+              <div className="absolute top-1/2 right-3">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="w-6 h-6 text-green-500"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                  ></path>
+                </svg>
+              </div>
+              <label className="ml-2 text-sm font-bold tracking-wide text-gray-700 ">
+                Email
+              </label>
+              <input
+                className="w-full px-4 py-3 border-b border-gray-300 focus:outline-none rounded-2xl focus:border-indigo-500"
+                type="email"
+                placeholder="mail@gmail.com"
+                {...register('email')}
+              />
             </div>
-            <label className="ml-2 text-sm font-bold tracking-wide text-gray-700 ">
-              Email
-            </label>
-            <input
-              className="w-full px-4 py-3 border-b border-gray-300 focus:outline-none rounded-2xl focus:border-indigo-500"
-              type="email"
-              placeholder="mail@gmail.com"
-              value="mail@gmail.com"
-              required
-            />
+            <p className="mt-2 ml-2 text-red-400 ">{errors.email?.message}</p>
           </div>
 
           <div className="mt-4">
-            <label className="ml-2 text-sm font-bold tracking-wide text-gray-700 ">
-              Password
-            </label>
-            <input
-              className="w-full px-4 py-3 border-b border-gray-300 rounded-2xl focus:outline-none focus:border-indigo-500"
-              type="password"
-              placeholder="Enter your password"
-              value="*****|"
-              required
-            />
+            <div className="relative">
+              <label className="ml-2 text-sm font-bold tracking-wide text-gray-700 ">
+                Password
+              </label>
+              <input
+                className="w-full px-4 py-3 border-b border-gray-300 rounded-2xl focus:outline-none focus:border-indigo-500"
+                type="password"
+                placeholder="Enter your password"
+                {...register('password')}
+              />
+            </div>
+            <p className="mt-2 ml-2 text-red-400 ">
+              {errors.password?.message}
+            </p>
           </div>
 
           <div className="flex items-center justify-between">
             <div className="flex items-center">
               <input
-                id="remember_me"
-                name="remember_me"
+                id="remember"
                 type="checkbox"
                 className="w-4 h-4 bg-blue-500 border-gray-300 rounded focus:ring-blue-400"
+                {...register('remember')}
               />
               <label
-                htmlFor="remember_me"
+                htmlFor="remember"
                 className="block ml-2 text-sm text-gray-900"
               >
                 Remember me
               </label>
             </div>
             <div className="text-sm">
-              <a href="#" className="text-indigo-400 hover:text-blue-500">
+              <Link href="#" className="text-indigo-400 hover:text-blue-500">
                 Forgot your password?
-              </a>
+              </Link>
             </div>
           </div>
 
