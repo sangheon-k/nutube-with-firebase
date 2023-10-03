@@ -75,51 +75,57 @@ const SignupPage = () => {
           </div>
 
           <div className="relative mt-4">
-            <div className="absolute top-1/2 right-3">
-              {/* <Image
-                src="/ico_check_green.svg"
-                className="w-6 h-6 text-green-500"
-                alt="check_green"
-                width={24}
-                height={24}
-              /> */}
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="w-6 h-6 text-green-500"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
-                ></path>
-              </svg>
+            <div className="relative">
+              <div className="absolute top-1/2 right-3">
+                {/* <Image
+                  src="/ico_check_green.svg"
+                  className="w-6 h-6 text-green-500"
+                  alt="check_green"
+                  width={24}
+                  height={24}
+                /> */}
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="w-6 h-6 text-green-500"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                  ></path>
+                </svg>
+              </div>
+              <label className="ml-2 text-sm font-bold tracking-wide text-gray-700 ">
+                Email
+              </label>
+              <input
+                className="w-full px-4 py-3 border-b border-gray-300 focus:outline-none rounded-2xl focus:border-red-300"
+                type="email"
+                placeholder="mail@gmail.com"
+                {...register('email', {
+                  required: 'Email Address is required',
+                })}
+              />
             </div>
-            <label className="ml-2 text-sm font-bold tracking-wide text-gray-700 ">
-              Email
-            </label>
-            <input
-              className="w-full px-4 py-3 border-b border-gray-300 focus:outline-none rounded-2xl focus:border-red-300"
-              type="email"
-              placeholder="mail@gmail.com"
-              {...register('email', { required: 'Email Address is required' })}
-            />
             <p className="mt-2 ml-2 text-red-400 ">{errors.email?.message}</p>
           </div>
 
           <div className="mt-4">
-            <label className="ml-2 text-sm font-bold tracking-wide text-gray-700 ">
-              Password
-            </label>
-            <input
-              className="w-full px-4 py-3 border-b border-gray-300 rounded-2xl focus:outline-none focus:border-red-300"
-              type="password"
-              placeholder="Enter your password"
-              {...register('password', { required: 'Password is required' })}
-            />
+            <div className="relative">
+              <label className="ml-2 text-sm font-bold tracking-wide text-gray-700 ">
+                Password
+              </label>
+              <input
+                className="w-full px-4 py-3 border-b border-gray-300 rounded-2xl focus:outline-none focus:border-red-300"
+                type="password"
+                placeholder="Enter your password"
+                {...register('password', { required: 'Password is required' })}
+              />
+            </div>
             <p className="mt-2 ml-2 text-red-400 ">
               {errors.password?.message}
             </p>
