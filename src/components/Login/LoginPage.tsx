@@ -1,18 +1,34 @@
-import Image from 'next/image';
+import { useEffect, useState } from 'react';
+import { auth } from '../../../firebase';
+import GoogleLoginBtn from '../GoogleLoginBtn';
+import { useRouter } from 'next/router';
+import Link from 'next/link';
+import LoadingScreen from '../LoadingScreen/LoadingScreen';
 
 const LoginPage = () => {
+  const user = auth.currentUser;
+  const router = useRouter();
+  const [isLoading, setLoading] = useState(false);
+
+  useEffect(() => {
+    if (user) {
+      router.push('/');
+    }
+  }, []);
+
   return (
     <div className="w-full p-8 bg-white md:flex md:items-center md:justify-center md:h-full md:p-10 lg:p-14 sm:rounded-lg md:rounded-none">
       <div className="w-full max-w-md space-y-8">
         <div className="text-center">
           <h2 className="mt-6 text-3xl font-bold text-gray-900">
-            Welcom Back!
+            Welcome Back!
           </h2>
           <p className="mt-2 text-sm text-gray-500">
             Please sign in to your account
           </p>
         </div>
-        <div className="flex flex-row items-center justify-center space-x-3">
+        <GoogleLoginBtn />
+        {/* <div className="flex flex-row items-center justify-center space-x-3">
           <a
             href="https://www.behance.net/ajeeshmon"
             target="_blank"
@@ -52,16 +68,17 @@ const LoginPage = () => {
               height={16}
             />
           </a>
-        </div>
+        </div> */}
         <div className="flex items-center justify-center space-x-2">
-          <span className="w-16 h-px bg-gray-200"></span>
-          <span className="font-normal text-gray-300">or continue with</span>
-          <span className="w-16 h-px bg-gray-200"></span>
+          <span className="w-24 h-px bg-gray-300"></span>
+          <span className="font-normal text-gray-400">or continue with</span>
+          <span className="w-24 h-px bg-gray-300"></span>
         </div>
-        <form className="mt-8 space-y-6" action="#" method="POST">
+        <form className="mt-8 space-y-7" action="#" method="POST">
           <input type="hidden" name="remember" value="true" />
-          <div className="relative">
-            <div className="absolute mt-4 right-3">
+
+          <div className="relative mt-4">
+            <div className="absolute top-1/2 right-3">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="w-6 h-6 text-green-500"
@@ -77,27 +94,31 @@ const LoginPage = () => {
                 ></path>
               </svg>
             </div>
-            <label className="ml-3 text-sm font-bold tracking-wide text-gray-700">
+            <label className="ml-2 text-sm font-bold tracking-wide text-gray-700 ">
               Email
             </label>
             <input
-              className="w-full px-4 py-2 text-base border-b border-gray-300 focus:outline-none rounded-2xl focus:border-indigo-500"
-              type=""
+              className="w-full px-4 py-3 border-b border-gray-300 focus:outline-none rounded-2xl focus:border-indigo-500"
+              type="email"
               placeholder="mail@gmail.com"
               value="mail@gmail.com"
+              required
             />
           </div>
-          <div className="content-center mt-8">
-            <label className="ml-3 text-sm font-bold tracking-wide text-gray-700">
+
+          <div className="mt-4">
+            <label className="ml-2 text-sm font-bold tracking-wide text-gray-700 ">
               Password
             </label>
             <input
-              className="content-center w-full px-4 py-2 text-base border-b border-gray-300 rounded-2xl focus:outline-none focus:border-indigo-500"
-              type=""
+              className="w-full px-4 py-3 border-b border-gray-300 rounded-2xl focus:outline-none focus:border-indigo-500"
+              type="password"
               placeholder="Enter your password"
               value="*****|"
+              required
             />
           </div>
+
           <div className="flex items-center justify-between">
             <div className="flex items-center">
               <input
@@ -119,7 +140,8 @@ const LoginPage = () => {
               </a>
             </div>
           </div>
-          <div>
+
+          {/* <div>
             <button
               type="submit"
               className="flex justify-center w-full p-4 font-semibold tracking-wide text-gray-100 transition duration-500 ease-in rounded-full shadow-lg cursor-pointer bg-gradient-to-r from-indigo-500 to-blue-600 hover:bg-gradient-to-l hover:from-blue-500 hover:to-indigo-600"
@@ -129,12 +151,30 @@ const LoginPage = () => {
           </div>
           <p className="flex flex-col items-center justify-center mt-10 text-center text-gray-500 text-md">
             <span>Don&rsquo;t have an account?</span>
-            <a
-              href="#"
+            <Link
+              href="/signup"
               className="text-indigo-400 no-underline transition duration-300 ease-in cursor-pointer hover:text-blue-500 hover:underline"
             >
               Sign up
-            </a>
+            </Link>
+          </p> */}
+
+          <div className="mt-12">
+            <button
+              type="submit"
+              className="flex justify-center w-full p-4 font-semibold tracking-wide text-gray-100 transition duration-500 ease-in rounded-full shadow-lg cursor-pointer bg-gradient-to-r from-red-400 to-rose-700 hover:from-rose-700 hover:to-red-400"
+            >
+              {isLoading ? <LoadingScreen size="small" /> : 'Sign in'}
+            </button>
+          </div>
+          <p className="flex flex-col items-center justify-center text-center text-gray-500 mt-9 text-md">
+            <span>Don&rsquo;t have an account?</span>
+            <Link
+              href="/signup"
+              className="text-indigo-400 no-underline transition duration-300 ease-in cursor-pointer hover:text-blue-500 hover:underline"
+            >
+              Sign up
+            </Link>
           </p>
         </form>
       </div>
