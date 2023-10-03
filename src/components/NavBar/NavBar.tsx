@@ -41,7 +41,6 @@ const NavBar = ({ setIsAsideOpen }: NavBarProps) => {
           >
             <Image
               src="https://plchldr.co/i/40x40?text=T"
-              className="w-6 h-6 text-green-500"
               alt="Avatar"
               width={40}
               height={40}
