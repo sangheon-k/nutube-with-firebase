@@ -1,16 +1,49 @@
 import React, { useState } from 'react';
+import { FieldValues, useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import Link from 'next/link';
+import LoadingScreen from '../LoadingScreen/LoadingScreen';
+import * as yup from 'yup';
+import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
 import { auth } from '../../../firebase';
 import { useRouter } from 'next/router';
-import Image from 'next/image';
-import LoadingScreen from '../LoadingScreen/LoadingScreen';
-import Link from 'next/link';
+import { FirebaseError } from 'firebase/app';
+
+const schema = yup
+  .object({
+    username: yup.string().required(),
+    email: yup.string().required(),
+    password: yup.string().required(),
+  })
+  .required();
 
 const SignupPage = () => {
-  const [isLoading, setLoading] = useState(false);
-  const user = auth.currentUser;
   const router = useRouter();
+  const [isLoading, setLoading] = useState(false);
+  const [FBError, setFBError] = useState('');
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({ resolver: yupResolver(schema) });
 
-  const onSubmit = async () => {};
+  const onSubmit = async (data: FieldValues) => {
+    try {
+      setLoading(true);
+      const { username, email, password } = data;
+      const credentials = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password,
+      );
+      await updateProfile(credentials.user, { displayName: username });
+      router.push('/');
+    } catch (e) {
+      if (e instanceof FirebaseError) setFBError(e.message);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <div className="w-full p-8 bg-white md:flex md:items-center md:justify-center md:h-full md:p-10 lg:p-14 sm:rounded-lg md:rounded-none">
@@ -23,7 +56,7 @@ const SignupPage = () => {
             Please sign up for an account
           </p>
         </div>
-        <form className="mt-8 space-y-7" onSubmit={onSubmit}>
+        <form className="mt-8 space-y-7" onSubmit={handleSubmit(onSubmit)}>
           <input type="hidden" name="remember" value="true" />
 
           <div>
@@ -33,10 +66,12 @@ const SignupPage = () => {
             <input
               className="w-full px-4 py-3 border-b border-gray-300 focus:outline-none rounded-2xl focus:border-red-300"
               type="text"
-              placeholder="mail@gmail.com"
-              value="mail@gmail.com"
-              required
+              placeholder=""
+              {...register('username', { required: 'Username is required' })}
             />
+            <p className="mt-2 ml-2 text-red-400 ">
+              {errors.username?.message}
+            </p>
           </div>
 
           <div className="relative mt-4">
@@ -56,9 +91,9 @@ const SignupPage = () => {
                 stroke="currentColor"
               >
                 <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
                   d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
                 ></path>
               </svg>
@@ -70,9 +105,9 @@ const SignupPage = () => {
               className="w-full px-4 py-3 border-b border-gray-300 focus:outline-none rounded-2xl focus:border-red-300"
               type="email"
               placeholder="mail@gmail.com"
-              value="mail@gmail.com"
-              required
+              {...register('email', { required: 'Email Address is required' })}
             />
+            <p className="mt-2 ml-2 text-red-400 ">{errors.email?.message}</p>
           </div>
 
           <div className="mt-4">
@@ -83,9 +118,11 @@ const SignupPage = () => {
               className="w-full px-4 py-3 border-b border-gray-300 rounded-2xl focus:outline-none focus:border-red-300"
               type="password"
               placeholder="Enter your password"
-              value="*****|"
-              required
+              {...register('password', { required: 'Password is required' })}
             />
+            <p className="mt-2 ml-2 text-red-400 ">
+              {errors.password?.message}
+            </p>
           </div>
 
           {/* <div className="flex items-center justify-between mt-6">
@@ -118,6 +155,9 @@ const SignupPage = () => {
               {isLoading ? <LoadingScreen size="small" /> : 'Sign up'}
             </button>
           </div>
+          {FBError !== '' ? (
+            <p className="text-center text-red-400 ">{FBError}</p>
+          ) : null}
           <p className="flex flex-col items-center justify-center text-center text-gray-500 mt-9 text-md">
             <span>Do you already have an account?</span>
             <Link
