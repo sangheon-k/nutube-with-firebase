@@ -1,19 +1,76 @@
-import VideoCardList from '../VideoCardList/VideoCardList';
+import { useEffect, useState } from 'react';
+import { Unsubscribe } from 'firebase/auth';
+import {
+  collection,
+  limit,
+  onSnapshot,
+  orderBy,
+  query,
+} from 'firebase/firestore';
+import { db } from '../../../firebase';
+import { IVideo } from '@/types';
+import VideoCard from '../VideoCardList/VideoCard';
 
 const HomePage = () => {
+  const [videos, setVideos] = useState<IVideo[]>([]);
+  useEffect(() => {
+    let unsubscribe: Unsubscribe | null = null;
+    const fetchVideos = async () => {
+      const videosQuery = query(
+        collection(db, 'videos'), // collection
+        orderBy('createdAt', 'desc'), // orderBy
+        limit(25), // limit
+      );
+      unsubscribe = await onSnapshot(videosQuery, (snapshot) => {
+        const videos = snapshot.docs.map((doc) => {
+          const {
+            views,
+            writer,
+            writerId,
+            title,
+            description,
+            privacy,
+            filePath,
+            category,
+            duration,
+            thumbnail,
+            createdAt,
+            updatedAt,
+          } = doc.data();
+          return {
+            id: doc.id,
+            views,
+            writer,
+            writerId,
+            title,
+            description,
+            privacy,
+            filePath,
+            category,
+            duration,
+            thumbnail,
+            createdAt,
+            updatedAt,
+          };
+        });
+        setVideos(videos);
+      });
+    };
+    fetchVideos();
+    return () => {
+      unsubscribe && unsubscribe();
+    };
+  }, []);
+
+  console.log(videos);
+
   return (
     <main className="p-10 overflow-y-auto">
-      <h1 className="text-3xl font-bold underline ">Hello world!</h1>
-      {/* <!-- main content page --> */}
-      <div className="w-full mb-4">
-        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Expedita quam
-        odit officiis magni doloribus ipsa dolore, dolores nihil accusantium
-        labore, incidunt autem iure quae vitae voluptate, esse asperiores
-        aliquam repellat. Harum aliquid non officiis porro at cumque eaque
-        inventore iure. Modi sunt optio mollitia repellat sed ab quibusdam quos
-        harum!
+      <div className="grid mx-auto sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-4">
+        {videos.map((video) => (
+          <VideoCard key={video.id} video={video} />
+        ))}
       </div>
-      <VideoCardList />
     </main>
   );
 };

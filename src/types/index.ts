@@ -9,14 +9,15 @@
 export interface IVideo {
   id: string;
   views: number;
-  writer: string; // userId
+  writer: string;
+  writerId: string;
   title: string;
   description: string;
   privacy: number;
   filePath: string;
   category: number;
-  duration: string;
+  duration: number;
   thumbnail: string;
-  createdAt: Date;
-  updatedAt: Date;
+  createdAt: number;
+  updatedAt: number;
 }

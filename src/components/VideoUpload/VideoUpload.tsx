@@ -57,7 +57,8 @@ const VideoUploadPage = () => {
       const videosCollection = collection(db, 'videos');
       const doc = await addDoc(videosCollection, {
         views: 0,
-        writer: user?.uid,
+        writer: user?.displayName,
+        writerId: user?.uid,
         title,
         description,
         privacy,
@@ -306,7 +307,7 @@ const VideoUploadPage = () => {
 
           <div className="pt-6">
             <button className="w-full px-8 py-3 text-base font-semibold text-center text-white bg-red-500 rounded-md outline-none hover:shadow-form">
-              {isLoading ? <LoadingScreen size="small" /> : 'Send File'}
+              {isLoading ? <LoadingScreen size="small" /> : 'Upload Now'}
             </button>
           </div>
         </form>
