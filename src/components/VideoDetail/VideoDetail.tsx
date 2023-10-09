@@ -11,8 +11,15 @@ import {
 import Comments from './Comments';
 import Recommend from './Recommend';
 import PostCommentBox from './PostCommentBox';
+import { DocumentData } from 'firebase/firestore';
+import { format } from 'date-fns';
+import { ko } from 'date-fns/locale';
 
-const VideoDetailPage = () => {
+interface Props {
+  video: DocumentData;
+}
+
+const VideoDetailPage = ({ video }: Props) => {
   return (
     <div className="flex w-full h-full overflow-y-auto">
       <div className="w-full px-4 mx-auto mt-6 border-r h-fit max-w-7xl sm:px-6 lg:px-8">
@@ -20,10 +27,15 @@ const VideoDetailPage = () => {
           <div className="px-4 md:flex-1">
             <div className="mb-4 bg-gray-100 rounded-lg aspect-video">
               <div className="flex items-center justify-center mb-4 bg-gray-100 rounded-lg aspect-video">
-                <video className="w-full h-full" controls />
+                <video
+                  src={video.filePath}
+                  poster={video.thumbnail}
+                  controls
+                  className="w-full h-full"
+                />
                 {/* <span className="text-4xl font-semibold text-gray-300 md:text-5xl">
-                  Nutube
-                </span> */}
+              Nutube
+            </span> */}
               </div>
             </div>
           </div>
@@ -31,9 +43,7 @@ const VideoDetailPage = () => {
           {/* Text */}
           <div className="px-4 md:flex-1">
             <h2 className="flex items-center justify-between mb-2 font-bold leading-tight tracking-tight text-gray-800">
-              <span className="text-2xl md:text-3xl">
-                Lorem ipsum dolor, sit amet consectetur, adipisicing elit.
-              </span>
+              <span className="text-2xl md:text-3xl">{video.title}</span>
               <span className="flex items-center gap-4">
                 <button
                   type="button"
@@ -64,14 +74,11 @@ const VideoDetailPage = () => {
             </h2>
 
             <p className="mt-4 text-gray-500">
-              Lorem ipsum, dolor sit, amet consectetur adipisicing elit. Vitae
-              exercitationem porro saepe ea harum corrupti vero id laudantium
-              <br />
-              enim, libero blanditiis expedita cupiditate a est.
+              {video.description}
               <span className="mt-2 ml-1 text-sm text-gray-500">
-                By{' '}
+                <span className="text-gray-400">|</span> By{' '}
                 <a href="#" className="text-red-600 hover:underline">
-                  ABC Company
+                  {video?.writer}
                 </a>
               </span>
             </p>
@@ -95,6 +102,9 @@ const VideoDetailPage = () => {
               <div className="flex gap-2 px-3 py-1 font-semibold text-white bg-red-600 rounded-xl">
                 popular
               </div>
+              <span className="block mt-2 text-sm text-end">
+                {format(video.createdAt, 'PPpp')}
+              </span>
             </div>
 
             {/* Comments */}
@@ -109,9 +119,9 @@ const VideoDetailPage = () => {
             </div>
 
             {/* <div className="flex items-center border border-gray-200 appearance-none cursor-pointer rounded-xl h-28">
-              Comment Box
-              <span></span>
-            </div> */}
+      Comment Box
+      <span></span>
+    </div> */}
           </div>
         </div>
       </div>
