@@ -1,5 +1,7 @@
-const VideoDetailPage = () => {
-  return <div>VideoDetailPage</div>;
+import VideoDetailPage from '@/components/VideoDetail/VideoDetail';
+
+const VideoDetail = () => {
+  return <VideoDetailPage />;
 };
 
-export default VideoDetailPage;
+export default VideoDetail;
