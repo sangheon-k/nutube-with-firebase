@@ -13,7 +13,6 @@ import Recommend from './Recommend';
 import PostCommentBox from './PostCommentBox';
 import { DocumentData } from 'firebase/firestore';
 import { format } from 'date-fns';
-import { ko } from 'date-fns/locale';
 
 interface Props {
   video: DocumentData;

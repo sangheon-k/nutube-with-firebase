@@ -40,10 +40,12 @@ const VideoCard = ({ video, vertical }: VideoProps) => {
         </div>
       </Link>
 
-      <div className={`px-2 py-3 text-[#0f0f0f] ${vertical && 'px-4'}`}>
+      <div
+        className={`px-2 py-3 text-[#0f0f0f] ${vertical && 'px-4 flex-grow'}`}
+      >
         <Link
           href={`/video/${video.id}`}
-          className="block overflow-hidden font-bold cursor-pointer title hover:underline text-ellipsis whitespace-nowrap"
+          className="max-w-[130px] block overflow-hidden font-bold cursor-pointer title hover:underline text-ellipsis whitespace-nowrap"
         >
           {video.title}
         </Link>
@@ -51,9 +53,9 @@ const VideoCard = ({ video, vertical }: VideoProps) => {
         <span className="text-[#606060] ">{video.writer}</span>
 
         <span className="block text-[#606060]">
-          <span className="mr-1">조회수 {video.views}회</span>
-          <span className="mr-1">
-            &middot;
+          <span>조회수 {video.views}회</span>
+          <span className="mx-1">&middot;</span>
+          <span>
             {formatDistanceToNow(video.createdAt, {
               addSuffix: true,
               locale: ko,
