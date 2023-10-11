@@ -3,9 +3,10 @@ import { useRouter } from 'next/router';
 import VideoDetailPage from '@/components/VideoDetail/VideoDetail';
 import { useQuery } from 'react-query';
 
-import { DocumentData, doc, getDoc } from 'firebase/firestore';
+import { doc, getDoc, updateDoc } from 'firebase/firestore';
 import { db } from '../../../firebase';
 import LoadingScreen from '@/components/LoadingScreen/LoadingScreen';
+import { IVideo } from '@/types';
 
 const VideoDetail = () => {
   const { query: params } = useRouter();
@@ -20,11 +21,13 @@ const VideoDetail = () => {
 
 export default VideoDetail;
 
-export const fetchVideo = async (videoId: string) => {
+export const fetchVideo = async (id: string) => {
   try {
-    const docRef = doc(db, 'videos', videoId);
+    const docRef = doc(db, 'videos', id);
     const result = await getDoc(docRef);
-    return result.data() as DocumentData;
+    const newCountViews = result.data()?.views + 1;
+    await updateDoc(docRef, { views: newCountViews });
+    return { ...result.data(), views: newCountViews } as IVideo;
   } catch (e) {
     console.error(e);
   }

@@ -11,11 +11,11 @@ import {
 import Comments from './Comments';
 import Recommend from './Recommend';
 import PostCommentBox from './PostCommentBox';
-import { DocumentData } from 'firebase/firestore';
 import { format } from 'date-fns';
+import { IVideo } from '@/types';
 
 interface Props {
-  video: DocumentData;
+  video: IVideo;
 }
 
 const VideoDetailPage = ({ video }: Props) => {
@@ -86,7 +86,9 @@ const VideoDetailPage = ({ video }: Props) => {
               <div>
                 <div className="flex items-center gap-1.5 px-3 py-4 rounded-lg ">
                   <AiOutlineEye fontSize={21} color="#a8a29e" />
-                  <span className="text-lg font-bold text-stone-500">250</span>
+                  <span className="text-lg font-bold text-stone-500">
+                    {video.views}
+                  </span>
                 </div>
               </div>
               <BsGraphUp className="text-2xl" />
