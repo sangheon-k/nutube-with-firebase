@@ -16,7 +16,15 @@ const VideoDetail = () => {
     queryFn: () => fetchVideo(videoId),
   });
 
-  return <>{video ? <VideoDetailPage video={video} /> : <LoadingScreen />}</>;
+  return (
+    <>
+      {video ? (
+        <VideoDetailPage video={{ ...video, id: videoId }} />
+      ) : (
+        <LoadingScreen />
+      )}
+    </>
+  );
 };
 
 export default VideoDetail;
