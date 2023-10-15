@@ -113,7 +113,7 @@ const VideoDetailPage = ({ video }: Props) => {
         </div>
       </div>
 
-      <Recommend category="0" />
+      <Recommend category={video.category} />
     </div>
   );
 };
