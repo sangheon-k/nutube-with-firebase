@@ -21,3 +21,17 @@ export interface IVideo {
   createdAt: Date;
   updatedAt: Date;
 }
+
+export interface ILike {
+  id: string;
+  videoId: string;
+  userId: string;
+  createdAt: Date;
+}
+
+export interface IDisLike {
+  id: string;
+  videoId: string;
+  userId: string;
+  createdAt: Date;
+}
