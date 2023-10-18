@@ -79,12 +79,12 @@ const VideoUploadPage = () => {
       const thumbUrl = await getDownloadURL(thumbResult.ref);
 
       await updateDoc(doc, { filePath: fileUrl, thumbnail: thumbUrl });
-    } catch (e) {
-      console.error(e);
-    } finally {
+
       setLoading(true);
       alert('비디오가 업로드 되었습니다!');
-      router.push('/');
+      router.push(`/video/${doc.id}`);
+    } catch (e) {
+      console.error(e);
     }
   };
 

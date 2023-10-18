@@ -11,12 +11,12 @@ import {
 import Comments from './Comments';
 import Recommend from './Recommend';
 import PostCommentBox from './PostCommentBox';
-import { DocumentData } from 'firebase/firestore';
 import { format } from 'date-fns';
-import { ko } from 'date-fns/locale';
+import { IVideo } from '@/types';
+import LikeDisLike from './LikeDisLike';
 
 interface Props {
-  video: DocumentData;
+  video: IVideo;
 }
 
 const VideoDetailPage = ({ video }: Props) => {
@@ -24,6 +24,7 @@ const VideoDetailPage = ({ video }: Props) => {
     <div className="flex w-full h-full overflow-y-auto">
       <div className="w-full px-4 mx-auto mt-6 border-r h-fit max-w-7xl sm:px-6 lg:px-8">
         <div className="flex flex-col -mx-4">
+          {/* Video Wrap */}
           <div className="px-4 md:flex-1">
             <div className="mb-4 bg-gray-100 rounded-lg aspect-video">
               <div className="flex items-center justify-center mb-4 bg-gray-100 rounded-lg aspect-video">
@@ -45,23 +46,7 @@ const VideoDetailPage = ({ video }: Props) => {
             <h2 className="flex items-center justify-between mb-2 font-bold leading-tight tracking-tight text-gray-800">
               <span className="text-2xl md:text-3xl">{video.title}</span>
               <span className="flex items-center gap-4">
-                <button
-                  type="button"
-                  className="flex items-end gap-2 text-gray-500 hover:text-red-600"
-                >
-                  <AiOutlineLike className="text-2xl" />
-                  {/* <AiFillLike className="text-2xl" /> */}
-                  <span>0</span>
-                </button>
-
-                <button
-                  type="button"
-                  className="flex items-end gap-2 text-gray-500 hover:text-red-600"
-                >
-                  <AiOutlineDislike className="text-2xl" />
-                  {/* <AiFillDislike className="text-2xl" /> */}
-                  <span>0</span>
-                </button>
+                <LikeDisLike videoId={video.id} />
 
                 <button
                   type="button"
@@ -87,7 +72,9 @@ const VideoDetailPage = ({ video }: Props) => {
               <div>
                 <div className="flex items-center gap-1.5 px-3 py-4 rounded-lg ">
                   <AiOutlineEye fontSize={21} color="#a8a29e" />
-                  <span className="text-lg font-bold text-stone-500">250</span>
+                  <span className="text-lg font-bold text-stone-500">
+                    {video.views}
+                  </span>
                 </div>
               </div>
               <BsGraphUp className="text-2xl" />
@@ -119,18 +106,14 @@ const VideoDetailPage = ({ video }: Props) => {
             </div>
 
             {/* <div className="flex items-center border border-gray-200 appearance-none cursor-pointer rounded-xl h-28">
-      Comment Box
-      <span></span>
-    </div> */}
+                  Comment Box
+                  <span></span>
+                </div> */}
           </div>
         </div>
       </div>
-      <div className="w-1/4  min-w-[350px]">
-        <h2 className="px-4 pt-8 pb-0 text-xl font-bold md:text-2xl">
-          Recommend
-        </h2>
-        <Recommend category="0" />
-      </div>
+
+      <Recommend category={video.category} />
     </div>
   );
 };

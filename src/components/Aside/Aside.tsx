@@ -2,10 +2,10 @@ import React from 'react';
 import Link from 'next/link';
 import {
   FcHome,
-  FcUpload,
   FcSettings,
   FcLikePlaceholder,
   FcBusinessman,
+  FcClapperboard,
 } from 'react-icons/fc';
 import { auth } from '../../../firebase';
 
@@ -26,7 +26,7 @@ const Aside = ({ isAsideOpen }: AsideProps) => {
                 return user ? (
                   <Link
                     key={item.id}
-                    href={item.url}
+                    href={item.id === 3 ? `${item.url}/${user.uid}` : item.url}
                     className="flex items-center px-2 py-3 space-x-2 rounded-md hover:bg-gray-100 hover:text-blue-600"
                   >
                     <span className="text-2xl">{item.icons}</span>
@@ -76,10 +76,10 @@ const ASIDE_MENU_LIST = [
   },
   {
     id: 3,
-    title: 'Uploads',
-    url: '/video/upload',
+    title: 'My Channel',
+    url: '/channel',
     auth: true,
-    icons: <FcUpload />,
+    icons: <FcClapperboard />,
   },
   {
     id: 4,

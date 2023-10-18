@@ -12,7 +12,7 @@ const PostCommentBox = () => {
         value={comment}
         onChange={onChange}
         placeholder="Please enter a comment"
-        className="w-full px-4 py-2 text-base font-normal border rounded-lg outline-none resize-none"
+        className="w-full px-4 py-2 text-base font-normal border rounded-lg outline-none resize-none focus:border-gray-400"
       />
       <svg
         stroke="currentColor"
