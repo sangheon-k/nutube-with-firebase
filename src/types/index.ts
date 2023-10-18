@@ -1,12 +1,23 @@
-/** IVideo - category
- * 0 - Undefined
- * 1 - "Home & Furniture"
- * 2 - "Living & Fun"
- * 3 - "Movie & Trailer"
- * 4 - "Kids & Family"
- * 5 - "Etc"
- */
+export interface IChannel {
+  id: string;
+  channelName: string;
+  description: string;
+  channelBannerImg: string;
+  ownerId: string;
+  ownerName: string;
+  ownerPhotoUrl: string;
+  createdAt: Date;
+}
+
 export interface IVideo {
+  /** IVideo - category
+   * 0 - Undefined
+   * 1 - "Home & Furniture"
+   * 2 - "Living & Fun"
+   * 3 - "Movie & Trailer"
+   * 4 - "Kids & Family"
+   * 5 - "Etc"
+   */
   id: string;
   views: number;
   writer: string;

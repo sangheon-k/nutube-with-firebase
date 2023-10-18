@@ -1,25 +1,29 @@
 import React, { useEffect, useState } from 'react';
 import CreateOne from './CreateOne';
 import { auth, db } from '../../../firebase';
-import { collection, getDocs, query, where } from 'firebase/firestore';
+import {
+  DocumentData,
+  collection,
+  getDocs,
+  query,
+  where,
+} from 'firebase/firestore';
 import ChannelDashBoard from './ChannelDashBoard';
+import { IChannel } from '@/types';
 
 const ChannelPage = () => {
   const user = auth.currentUser;
-  const [channelId, setChannelId] = useState('');
+  const [channel, setChannel] = useState<IChannel | null>(null);
   const [isLoading, setLoading] = useState(false);
 
   const fetchMyChannel = async () => {
     try {
       setLoading(true);
       const querySnapshot = await getDocs(
-        query(
-          collection(db, 'channels'),
-          where('channelOwnerId', '==', user?.uid),
-        ),
+        query(collection(db, 'channels'), where('ownerId', '==', user?.uid)),
       );
-      querySnapshot.docs.map((doc) => {
-        setChannelId(doc.data().id);
+      querySnapshot.docs.map((doc: DocumentData) => {
+        setChannel({ id: doc.data().id, ...doc.data() });
       });
     } catch (e) {
       console.error(e);
@@ -34,8 +38,8 @@ const ChannelPage = () => {
 
   return (
     <>
-      {!isLoading && channelId === '' && <CreateOne userId={user?.uid} />}
-      {!isLoading && channelId !== '' && <ChannelDashBoard />}
+      {!isLoading && !channel && <CreateOne />}
+      {!isLoading && channel && <ChannelDashBoard channel={channel} />}
     </>
   );
 };
