@@ -40,7 +40,7 @@ const DropdownProfile = ({ setIsProfileOpen }: Props) => {
           return (
             <Link
               key={item.id}
-              href={item.url}
+              href={item.id === 0 ? `${item.url}/${user?.uid}` : item.url}
               className="transition hover:text-blue-600"
             >
               {item.title}
@@ -65,7 +65,7 @@ const DropdownProfile = ({ setIsProfileOpen }: Props) => {
 export default DropdownProfile;
 
 const PROFILE_MENU_LIST = [
-  { id: 0, title: 'My Profile', url: '/' },
-  // { id: 1, title: 'Edit Profile', url: '/'  },
+  { id: 0, title: 'My channel', url: '/channel' },
+  { id: 1, title: 'Upload', url: '/video/upload' },
   { id: 2, title: 'Settings', url: '/' },
 ];
