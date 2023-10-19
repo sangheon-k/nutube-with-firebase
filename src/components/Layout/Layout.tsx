@@ -1,4 +1,4 @@
-import React, { ReactNode, useState } from 'react';
+import React, { ReactNode } from 'react';
 import Aside from '../Aside/Aside';
 import NavBar from '../NavBar/NavBar';
 
@@ -7,13 +7,11 @@ interface LayoutProps {
 }
 
 const Layout = ({ children }: LayoutProps) => {
-  const [isAsideOpen, setIsAsideOpen] = useState<boolean>(true);
-
   return (
     <div className="h-full">
-      <NavBar setIsAsideOpen={setIsAsideOpen} />
+      <NavBar />
       <div className="flex h-[calc(100%-62px)]">
-        <Aside isAsideOpen={isAsideOpen} />
+        <Aside />
         {children}
       </div>
     </div>

@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useLayoutEffect } from 'react';
 import Link from 'next/link';
+import { useRecoilState } from 'recoil';
 import {
   FcHome,
   FcSettings,
@@ -8,18 +9,25 @@ import {
   FcClapperboard,
 } from 'react-icons/fc';
 import { auth } from '../../../firebase';
+import { isMobile } from 'react-device-detect';
+import { asideToggleState } from '@/recoil/common';
 
-interface AsideProps {
-  isAsideOpen: boolean;
-}
-
-const Aside = ({ isAsideOpen }: AsideProps) => {
+const Aside = () => {
   const user = auth.currentUser;
+  const [isAsideOpen, setIsAsideOpen] = useRecoilState(asideToggleState);
+
+  useLayoutEffect(() => {
+    setIsAsideOpen(!isMobile);
+  }, []);
 
   return (
     <>
       {isAsideOpen && (
-        <aside className="flex flex-col justify-between w-72 min-w-[200px] border-r border-gray-100 bg-white shadow-aside">
+        <aside
+          className={`flex flex-col justify-between w-72 min-w-[200px] border-r border-gray-100 bg-white shadow-aside ${
+            isMobile && 'absolute left-0 top-[60px] z-10 w-full h-full'
+          }`}
+        >
           <div className="p-3 space-y-2">
             {ASIDE_MENU_LIST.map((item) => {
               if (item.auth) {
@@ -27,7 +35,10 @@ const Aside = ({ isAsideOpen }: AsideProps) => {
                   <Link
                     key={item.id}
                     href={item.id === 3 ? `${item.url}/${user.uid}` : item.url}
-                    className="flex items-center px-2 py-3 space-x-2 rounded-md hover:bg-gray-100 hover:text-blue-600"
+                    className={`flex items-center px-2 py-3 space-x-2 rounded-md hover:bg-gray-100 hover:text-blue-600 ${
+                      isMobile && 'text-xl py-5'
+                    }`}
+                    onClick={() => setIsAsideOpen(false)}
                   >
                     <span className="text-2xl">{item.icons}</span>
                     <span>{item.title}</span>
@@ -39,9 +50,14 @@ const Aside = ({ isAsideOpen }: AsideProps) => {
                 <Link
                   key={item.id}
                   href={item.url}
-                  className="flex items-center px-2 py-3 space-x-2 rounded-md hover:bg-gray-100 hover:text-blue-600"
+                  className={`flex items-center px-2 py-3 space-x-2 rounded-md hover:bg-gray-100 hover:text-blue-600 ${
+                    isMobile && 'text-xl py-5'
+                  }`}
+                  onClick={() => setIsAsideOpen(false)}
                 >
-                  <span className="text-2xl">{item.icons}</span>
+                  <span className={`text-2xl ${isMobile && 'text-2xl'}`}>
+                    {item.icons}
+                  </span>
                   <span>{item.title}</span>
                 </Link>
               );
