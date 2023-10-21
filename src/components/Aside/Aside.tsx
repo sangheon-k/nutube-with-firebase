@@ -10,11 +10,11 @@ import {
 } from 'react-icons/fc';
 import { auth } from '../../../firebase';
 import { isMobile } from 'react-device-detect';
-import { asideToggleState } from '@/recoil/common';
+import { toggleAsideState } from '@/recoil/common';
 
 const Aside = () => {
   const user = auth.currentUser;
-  const [isAsideOpen, setIsAsideOpen] = useRecoilState(asideToggleState);
+  const [isAsideOpen, setIsAsideOpen] = useRecoilState(toggleAsideState);
 
   useLayoutEffect(() => {
     setIsAsideOpen(!isMobile);

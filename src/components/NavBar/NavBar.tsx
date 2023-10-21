@@ -1,16 +1,16 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRecoilState } from 'recoil';
 import DropdownProfile from './DropdownProfile';
 import { GrMenu } from 'react-icons/gr';
 import { auth } from '../../../firebase';
-import { asideToggleState } from '@/recoil/common';
+import { toggleAsideState, toggleProfileState } from '@/recoil/common';
 
 const NavBar = () => {
   const user = auth.currentUser;
-  const [isProfileOpen, setIsProfileOpen] = useState(false);
-  const [isAsideOpen, setIsAsideOpen] = useRecoilState(asideToggleState);
+  const [isProfileOpen, setIsProfileOpen] = useRecoilState(toggleProfileState);
+  const [isAsideOpen, setIsAsideOpen] = useRecoilState(toggleAsideState);
 
   const handleMenuClick = () => {
     setIsAsideOpen((prev) => !prev);
@@ -55,9 +55,7 @@ const NavBar = () => {
             </Link>
           </>
         )}
-        {isProfileOpen && (
-          <DropdownProfile setIsProfileOpen={setIsProfileOpen} />
-        )}
+        {isProfileOpen && <DropdownProfile />}
       </div>
     </header>
   );

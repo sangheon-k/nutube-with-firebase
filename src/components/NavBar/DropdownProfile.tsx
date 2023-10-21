@@ -1,17 +1,15 @@
-import { SetStateAction } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { GrLogout } from 'react-icons/gr';
 import { auth } from '../../../firebase';
 import { useRouter } from 'next/router';
+import { useRecoilState } from 'recoil';
+import { toggleProfileState } from '@/recoil/common';
 
-interface Props {
-  setIsProfileOpen: React.Dispatch<SetStateAction<boolean>>;
-}
-
-const DropdownProfile = ({ setIsProfileOpen }: Props) => {
+const DropdownProfile = () => {
   const user = auth.currentUser;
   const router = useRouter();
+  const [isProfileOpen, setIsProfileOpen] = useRecoilState(toggleProfileState);
 
   const onLogOut = async () => {
     const isConfirmed = confirm('Are you  sure you want to log out?');
@@ -27,7 +25,7 @@ const DropdownProfile = ({ setIsProfileOpen }: Props) => {
       <div className="flex items-center p-4 space-x-2">
         <Image
           src="https://plchldr.co/i/40x40?text=T"
-          alt="plchldr.co"
+          alt="profile"
           className="rounded-full h-9 w-9"
           width={40}
           height={40}
