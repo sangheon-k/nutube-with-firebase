@@ -14,6 +14,7 @@ import PostCommentBox from './PostCommentBox';
 import { format } from 'date-fns';
 import { IVideo } from '@/types';
 import LikeDisLike from './LikeDisLike';
+import { isMobile } from 'react-device-detect';
 
 interface Props {
   video: IVideo;
@@ -21,11 +22,11 @@ interface Props {
 
 const VideoDetailPage = ({ video }: Props) => {
   return (
-    <div className="flex w-full h-full overflow-y-auto">
+    <div className="flex flex-col w-full h-full overflow-y-auto md:flex-row">
       <div className="w-full px-4 mx-auto mt-6 border-r h-fit max-w-7xl sm:px-6 lg:px-8">
-        <div className="flex flex-col -mx-4">
+        <div className="flex flex-col -mx-4 sm">
           {/* Video Wrap */}
-          <div className="px-4 md:flex-1">
+          <div className="md:flex-1 md:px-4">
             <div className="mb-4 bg-gray-100 rounded-lg aspect-video">
               <div className="flex items-center justify-center mb-4 bg-gray-100 rounded-lg aspect-video">
                 <video
@@ -42,7 +43,7 @@ const VideoDetailPage = ({ video }: Props) => {
           </div>
 
           {/* Text */}
-          <div className="px-4 md:flex-1">
+          <div className="px-6 md:flex-1 sm:px-4">
             <h2 className="flex items-center justify-between mb-2 font-bold leading-tight tracking-tight text-gray-800">
               <span className="text-2xl md:text-3xl">{video.title}</span>
               <span className="flex items-center gap-4">
