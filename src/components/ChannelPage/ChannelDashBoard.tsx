@@ -2,12 +2,15 @@ import React from 'react';
 import MyVideo from '../MyVideo/MyVideo';
 import Image from 'next/image';
 import { IChannel } from '@/types';
+import { useRecoilValue } from 'recoil';
+import { toggleMyChannelState } from '@/recoil/common';
 
 interface Props {
   channel: IChannel;
 }
 
 const ChannelDashBoard = ({ channel }: Props) => {
+  const isMyChannel = useRecoilValue(toggleMyChannelState);
   return (
     <div className="w-full overflow-y-auto">
       {/* <!-- User card--> */}
@@ -21,7 +24,10 @@ const ChannelDashBoard = ({ channel }: Props) => {
           <div className="flex justify-center w-full relative rounded-full md avatar h-[9rem] md:w-[9rem] mt-[-80px]">
             <Image
               className="relative  rounded-full md h-[9rem] w-[9rem]"
-              src={channel.ownerPhotoUrl} //"https://pbs.twimg.com/profile_images/1254779846615420930/7I4kP65u_400x400.jpg"
+              src={
+                channel.ownerPhotoUrl ??
+                'https://pbs.twimg.com/profile_images/1254779846615420930/7I4kP65u_400x400.jpg'
+              }
               alt=""
               width={400}
               height={400}
@@ -97,11 +103,14 @@ const ChannelDashBoard = ({ channel }: Props) => {
           </div>
 
           {/* <!-- Edit Profile --> */}
-          <div className="absolute md:top-8 right-7 md:right-40">
-            <button className="flex items-center justify-center px-4 py-2 ml-auto mr-0 font-bold text-blue-500 bg-transparent border border-blue-500 rounded-full max-h-max whitespace-nowrap max-w-max hover:border-blue-800 hover:shadow-md">
-              Edit Profile
-            </button>
-          </div>
+
+          {isMyChannel ? (
+            <div className="absolute md:top-8 right-7 md:right-40">
+              <button className="flex items-center justify-center px-4 py-2 ml-auto mr-0 font-bold text-blue-500 bg-transparent border border-blue-500 rounded-full max-h-max whitespace-nowrap max-w-max hover:border-blue-800 hover:shadow-md">
+                Edit Profile
+              </button>
+            </div>
+          ) : null}
         </div>
       </div>
 

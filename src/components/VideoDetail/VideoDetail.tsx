@@ -1,20 +1,14 @@
 import React from 'react';
-import { BsGraphUp } from 'react-icons/bs';
-import { GoBell } from 'react-icons/go';
-import {
-  AiOutlineLike,
-  AiOutlineDislike,
-  AiFillLike,
-  AiFillDislike,
-  AiOutlineEye,
-} from 'react-icons/ai';
+import Link from 'next/link';
+import { IVideo } from '@/types';
+import { format } from 'date-fns';
 import Comments from './Comments';
 import Recommend from './Recommend';
 import PostCommentBox from './PostCommentBox';
-import { format } from 'date-fns';
-import { IVideo } from '@/types';
 import LikeDisLike from './LikeDisLike';
-import { isMobile } from 'react-device-detect';
+import { AiOutlineEye } from 'react-icons/ai';
+import { BsGraphUp } from 'react-icons/bs';
+import { GoBell } from 'react-icons/go';
 
 interface Props {
   video: IVideo;
@@ -63,9 +57,12 @@ const VideoDetailPage = ({ video }: Props) => {
               {video.description}
               <span className="mt-2 ml-1 text-sm text-gray-500">
                 <span className="text-gray-400">|</span> By{' '}
-                <a href="#" className="text-red-600 hover:underline">
+                <Link
+                  href={`/channel/${video.writerId}`}
+                  className="text-red-600 hover:underline"
+                >
                   {video?.writer}
-                </a>
+                </Link>
               </span>
             </p>
 

@@ -3,6 +3,7 @@ import { atom, selector } from 'recoil';
 interface ICommonState {
   isAsideOpen: boolean;
   isProfileOpen: boolean;
+  isMyChannel: boolean;
 }
 
 const commonState = atom({
@@ -10,6 +11,7 @@ const commonState = atom({
   default: {
     isAsideOpen: false,
     isProfileOpen: false,
+    isMyChannel: false,
   },
 });
 
@@ -26,5 +28,13 @@ export const toggleProfileState = selector({
   get: ({ get }) => get(commonState).isProfileOpen,
   set: ({ get, set }, isProfileOpen) => {
     set(commonState, { ...get(commonState), isProfileOpen } as ICommonState);
+  },
+});
+
+export const toggleMyChannelState = selector({
+  key: 'toggleMyChannelState',
+  get: ({ get }) => get(commonState).isMyChannel,
+  set: ({ get, set }, isMyChannel) => {
+    set(commonState, { ...get(commonState), isMyChannel } as ICommonState);
   },
 });
