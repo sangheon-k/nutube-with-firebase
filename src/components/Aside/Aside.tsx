@@ -24,7 +24,7 @@ const Aside = () => {
     <>
       {isAsideOpen && (
         <aside
-          className={`flex flex-col justify-between w-72 min-w-[200px] border-r border-gray-100 bg-white shadow-aside ${
+          className={`flex flex-col justify-between min-w-[17rem] border-r border-gray-100 bg-white shadow-aside ${
             isMobile && 'absolute left-0 top-[60px] z-10 w-full h-full'
           }`}
         >
@@ -38,7 +38,7 @@ const Aside = () => {
                     className={`flex items-center px-2 py-3 space-x-2 rounded-md hover:bg-gray-100 hover:text-blue-600 ${
                       isMobile && 'text-xl py-5'
                     }`}
-                    onClick={() => setIsAsideOpen(false)}
+                    onClick={() => setIsAsideOpen(isMobile ? false : true)}
                   >
                     <span className="text-2xl">{item.icons}</span>
                     <span>{item.title}</span>
@@ -53,7 +53,7 @@ const Aside = () => {
                   className={`flex items-center px-2 py-3 space-x-2 rounded-md hover:bg-gray-100 hover:text-blue-600 ${
                     isMobile && 'text-xl py-5'
                   }`}
-                  onClick={() => setIsAsideOpen(false)}
+                  onClick={() => setIsAsideOpen(isMobile ? false : true)}
                 >
                   <span className={`text-2xl ${isMobile && 'text-2xl'}`}>
                     {item.icons}

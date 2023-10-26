@@ -12,54 +12,42 @@ const ChannelDashBoard = ({ channel }: Props) => {
     <div className="w-full overflow-y-auto">
       {/* <!-- User card--> */}
       <div className="">
-        <div className="w-full h-[300px] bg-center bg-no-repeat bg-cover bg-[url('https://pbs.twimg.com/profile_banners/2161323234/1585151401/600x200')] ">
+        <div className="w-full h-[200px] md:h-[300px] bg-center bg-no-repeat bg-cover bg-[url('https://pbs.twimg.com/profile_banners/2161323234/1585151401/600x200')] ">
           {/* http://via.placeholder.com/1600x300 */}
         </div>
-        <div className="p-4 px-40">
-          <div className="relative flex w-full">
-            {/* <!-- Avatar --> */}
-            <div className="flex flex-1">
-              <div className="absolute top-[-84px]">
-                <div className="relative rounded-full md avatar h-[9rem] w-[9rem]">
-                  <Image
-                    className="relative  rounded-full md h-[9rem] w-[9rem]"
-                    src={channel.ownerPhotoUrl} //"https://pbs.twimg.com/profile_images/1254779846615420930/7I4kP65u_400x400.jpg"
-                    alt=""
-                    width={400}
-                    height={400}
-                  />
-                  <div className="absolute"></div>
-                </div>
-                <div className="absolute left-[150px] top-[88px] flex items-baseline gap-[6px] w-72">
-                  <h2 className="text-2xl font-bold leading-6">
-                    {channel.channelName}
-                  </h2>
-                  <p>
-                    <span className="text-sm font-medium leading-5 text-gray-600 ">
-                      @{channel.ownerName}
-                    </span>
-                  </p>
-                </div>
-              </div>
-            </div>
-            {/* <!-- Follow Button --> */}
-            <div className="flex flex-col text-right">
-              <button className="flex items-center justify-center px-4 py-2 ml-auto mr-0 font-bold text-blue-500 bg-transparent border border-blue-500 rounded rounded-full max-h-max whitespace-nowrap focus:outline-none focus:ring max-w-max hover:border-blue-800 hover:shadow-lg">
-                Edit Profile
-              </button>
-            </div>
+
+        <div className="relative flex flex-col gap-6 px-6 py-6 pt-8 md:px-40 md:flex-row">
+          {/* <!-- Avatar --> */}
+          <div className="flex justify-center w-full relative rounded-full md avatar h-[9rem] md:w-[9rem] mt-[-80px]">
+            <Image
+              className="relative  rounded-full md h-[9rem] w-[9rem]"
+              src={channel.ownerPhotoUrl} //"https://pbs.twimg.com/profile_images/1254779846615420930/7I4kP65u_400x400.jpg"
+              alt=""
+              width={400}
+              height={400}
+            />
+            <div className="absolute"></div>
           </div>
 
-          {/* <!-- Profile info --> */}
-          <div className="justify-center w-full mt-1 ml-3 space-y-1">
-            {/* <!-- Description and others --> */}
-            <div className="ml-[140px]">
-              <p className="mb-2 leading-tight">
+          {/* <!-- Profile info - --> */}
+          <div className="flex justify-center flex-grow md:justify-between">
+            <div>
+              <div className=" flex-col md:flex-row items-center w-full flex md:items-baseline gap-[6px] md:w-72">
+                <h2 className="text-2xl font-bold leading-6">
+                  {channel.channelName}
+                </h2>
+                <p>
+                  <span className="text-sm font-medium leading-5 text-gray-600 ">
+                    @{channel.ownerName}
+                  </span>
+                </p>
+              </div>
+              <p className="mt-4 mb-2 leading-tight text-center md:text-left">
                 {/* {channel.description} */}
                 Software Engineer / Designer / Entrepreneur <br />
                 Visit my website to test a working <b>Nutube</b>
               </p>
-              <div className="flex items-center justify-between text-gray-600">
+              <div className="flex flex-col items-center justify-between gap-5 text-gray-600 md:gap-0 md:flex-row">
                 <div className="flex">
                   <span className="flex mr-2">
                     <svg viewBox="0 0 24 24" className="w-5 h-5 paint-icon">
@@ -96,9 +84,9 @@ const ChannelDashBoard = ({ channel }: Props) => {
                 {/* Followers */}
                 <div className="flex divide-x divide-gray-400 divide-solid">
                   {/* <div className="pr-3 text-center">
-                    <span className="font-bold">520</span>
-                    <span className="text-gray-600"> Following</span>
-                  </div> */}
+                      <span className="font-bold">520</span>
+                      <span className="text-gray-600"> Following</span>
+                    </div> */}
                   <div className="px-3 text-center">
                     <span className="mr-2 text-lg font-bold">23.4m </span>
                     <span className="text-gray-600"> Subscribers</span>
@@ -107,11 +95,19 @@ const ChannelDashBoard = ({ channel }: Props) => {
               </div>
             </div>
           </div>
+
+          {/* <!-- Edit Profile --> */}
+          <div className="absolute md:top-8 right-7 md:right-40">
+            <button className="flex items-center justify-center px-4 py-2 ml-auto mr-0 font-bold text-blue-500 bg-transparent border border-blue-500 rounded-full max-h-max whitespace-nowrap max-w-max hover:border-blue-800 hover:shadow-md">
+              Edit Profile
+            </button>
+          </div>
         </div>
       </div>
-      <hr className="border-gray-500" />
 
-      <div className="px-40">
+      <hr className="border-gray-300" />
+
+      <div className="md:px-40">
         <h2 className="px-6 pt-6 text-2xl font-semibold">My Video</h2>
         <MyVideo />
       </div>

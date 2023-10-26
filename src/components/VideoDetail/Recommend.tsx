@@ -48,7 +48,7 @@ const Recommend = ({ category }: Props) => {
       <h2 className="px-4 pt-4 pb-0 text-xl font-bold md:text-2xl md:pt-8">
         Recommend
       </h2>
-      <div className="flex flex-col pb-4 mt-1">
+      <div className="flex flex-col gap-1 pb-4 mt-1">
         {videos.map((video) => (
           <VideoCard key={video.id} video={video} vertical />
         ))}

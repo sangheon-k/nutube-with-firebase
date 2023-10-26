@@ -40,6 +40,7 @@ const DropdownProfile = () => {
               key={item.id}
               href={item.id === 0 ? `${item.url}/${user?.uid}` : item.url}
               className="transition hover:text-blue-600"
+              onClick={() => setIsProfileOpen(false)}
             >
               {item.title}
             </Link>

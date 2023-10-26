@@ -10,7 +10,7 @@ const HomePage = () => {
   );
 
   return (
-    <main className="p-10 overflow-y-auto">
+    <main className="px-2 overflow-y-auto md:p-8">
       <div className="grid mx-auto sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-4">
         {videos.map((video: IVideo) => (
           <VideoCard key={video.id} video={video} />
