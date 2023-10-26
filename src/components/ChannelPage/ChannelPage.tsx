@@ -45,12 +45,10 @@ const ChannelPage = () => {
   }, [pathId]);
 
   return (
-    !isLoading && (
-      <>
-        {!channel && <CreateOne />}
-        {channel && <ChannelDashBoard channel={channel} />}
-      </>
-    )
+    <>
+      {!isLoading && !channel && <CreateOne />}
+      {!isLoading && channel && <ChannelDashBoard channel={channel} />}
+    </>
   );
 };
 
