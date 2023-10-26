@@ -94,9 +94,9 @@ const VideoUploadPage = () => {
   }, [file]);
 
   return (
-    <div className="flex items-start justify-center w-full p-12 overflow-y-auto">
+    <div className="flex items-start justify-center w-full p-4 overflow-y-auto md:p-12">
       <div className="mx-auto w-full max-w-[550px] bg-white">
-        <form className="py-6 px-9" onSubmit={handleSubmit(onSubmit)}>
+        <form className="px-6 py-6 md:px-9" onSubmit={handleSubmit(onSubmit)}>
           <Form.Input
             label="Title"
             id="title"
@@ -105,8 +105,8 @@ const VideoUploadPage = () => {
             required={true}
           />
 
-          <div className="flex ">
-            <div className="w-1/2 pt-4 mb-5">
+          <div className="flex flex-col md:flex-row">
+            <div className="w-full pt-4 mb-5 md:w-1/2">
               <label className="mb-3 block text-xl font-semibold text-[#07074D]">
                 Public or Private
               </label>
@@ -144,7 +144,7 @@ const VideoUploadPage = () => {
               </div>
             </div>
 
-            <div className="w-1/2 pt-4 mb-5">
+            <div className="w-full pt-4 mb-5 md:w-1/2">
               <label
                 htmlFor="email"
                 className="mb-3 block text-xl font-semibold text-[#07074D]"
