@@ -5,16 +5,20 @@ import { format } from 'date-fns';
 import Comments from './Comments';
 import Recommend from './Recommend';
 import PostCommentBox from './PostCommentBox';
+import Subscribe from './Subscribe';
 import LikeDisLike from './LikeDisLike';
 import { AiOutlineEye } from 'react-icons/ai';
 import { BsGraphUp } from 'react-icons/bs';
-import { GoBell } from 'react-icons/go';
+import { auth } from '../../../firebase';
 
 interface Props {
   video: IVideo;
 }
 
 const VideoDetailPage = ({ video }: Props) => {
+  const user = auth.currentUser;
+  const isNotMyVideo = video.writerId !== user?.uid;
+
   return (
     <div className="flex flex-col w-full h-full overflow-y-auto md:flex-row">
       <div className="w-full px-4 mx-auto mt-6 border-r h-fit max-w-7xl sm:px-6 lg:px-8">
@@ -42,14 +46,7 @@ const VideoDetailPage = ({ video }: Props) => {
               <span className="text-2xl md:text-3xl">{video.title}</span>
               <span className="flex items-center gap-4">
                 <LikeDisLike videoId={video.id} />
-
-                <button
-                  type="button"
-                  className="flex gap-2 px-4 py-4 font-semibold text-white bg-red-600 rounded-xl hover:bg-red-500"
-                  // UnSubscribe : bg-gray-400 rounded-xl hover:bg-gray-500
-                >
-                  Subscribe <span>0</span> <GoBell />
-                </button>
+                {isNotMyVideo && <Subscribe writerId={video.writerId} />}
               </span>
             </h2>
 

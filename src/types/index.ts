@@ -46,3 +46,9 @@ export interface IDisLike {
   userId: string;
   createdAt: Date;
 }
+
+export interface ISubscribe {
+  userId: string;
+  channelId: string;
+  createdAt: Date;
+}
