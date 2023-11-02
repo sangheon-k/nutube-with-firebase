@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-import { useRecoilState } from 'recoil';
-import { IChannel } from '@/types';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import { toggleMyChannelState } from '@/recoil/common';
 import { auth, db } from '../../../firebase';
 import {
@@ -13,13 +12,15 @@ import {
 } from 'firebase/firestore';
 import CreateOne from './CreateOne';
 import ChannelDashBoard from './ChannelDashBoard';
+import { channelState, checkHasChannelState } from '@/recoil/channel';
 
 const ChannelPage = () => {
   const user = auth.currentUser;
   const router = useRouter();
-  const [channel, setChannel] = useState<IChannel | null>(null);
   const [isLoading, setLoading] = useState(false);
-  const [isMyChannel, setIsMyChannel] = useRecoilState(toggleMyChannelState);
+  const [channel, setChannel] = useRecoilState(channelState);
+  const hasChannel = useRecoilValue(checkHasChannelState);
+  const setIsMyChannel = useSetRecoilState(toggleMyChannelState);
 
   const pathId = router.asPath.split('/').slice(-1)[0];
 
@@ -30,7 +31,7 @@ const ChannelPage = () => {
         query(collection(db, 'channels'), where('ownerId', '==', userId)),
       );
       querySnapshot.docs.map((doc: DocumentData) => {
-        setChannel({ id: doc.data().id, ...doc.data() });
+        setChannel({ id: doc.id, ...doc.data() });
       });
     } catch (e) {
       console.error(e);
@@ -44,10 +45,11 @@ const ChannelPage = () => {
     fetchMyChannel(pathId);
   }, [pathId]);
 
+  console.log(channel);
   return (
     <>
-      {!isLoading && !channel && <CreateOne />}
-      {!isLoading && channel && <ChannelDashBoard channel={channel} />}
+      {!isLoading && !hasChannel && <CreateOne />}
+      {!isLoading && hasChannel && <ChannelDashBoard channel={channel} />}
     </>
   );
 };
