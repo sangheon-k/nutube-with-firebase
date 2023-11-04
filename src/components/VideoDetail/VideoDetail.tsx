@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Link from 'next/link';
-import { IVideo } from '@/types';
+import { useRecoilValue } from 'recoil';
+import { channelState } from '@/recoil/channel';
 import { format } from 'date-fns';
 import Comments from './Comments';
 import Recommend from './Recommend';
@@ -9,15 +10,15 @@ import Subscribe from './Subscribe';
 import LikeDisLike from './LikeDisLike';
 import { AiOutlineEye } from 'react-icons/ai';
 import { BsGraphUp } from 'react-icons/bs';
-import { auth } from '../../../firebase';
+import { IVideo } from '@/types';
 
 interface Props {
   video: IVideo;
 }
 
 const VideoDetailPage = ({ video }: Props) => {
-  const user = auth.currentUser;
-  const isNotMyVideo = video.writerId !== user?.uid;
+  const { id: channelId } = useRecoilValue(channelState);
+  const isMyChannel = video.channelId === channelId;
 
   return (
     <div className="flex flex-col w-full h-full overflow-y-auto md:flex-row">
@@ -46,7 +47,7 @@ const VideoDetailPage = ({ video }: Props) => {
               <span className="text-2xl md:text-3xl">{video.title}</span>
               <span className="flex items-center gap-4">
                 <LikeDisLike videoId={video.id} />
-                {isNotMyVideo && <Subscribe writerId={video.writerId} />}
+                {!isMyChannel && <Subscribe channelId={video.channelId} />}
               </span>
             </h2>
 
@@ -55,10 +56,10 @@ const VideoDetailPage = ({ video }: Props) => {
               <span className="mt-2 ml-1 text-sm text-gray-500">
                 <span className="text-gray-400">|</span> By{' '}
                 <Link
-                  href={`/channel/${video.writerId}`}
+                  href={`/channel/${video.channelId}`}
                   className="text-red-600 hover:underline"
                 >
-                  {video?.writer}
+                  {video?.channelName}
                 </Link>
               </span>
             </p>

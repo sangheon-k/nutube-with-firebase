@@ -2,15 +2,17 @@ import React from 'react';
 import VideoCard from '../VideoCardList/VideoCard';
 import useGetSnapshot from '@/hooks/useGetSnapshot';
 import { collection, limit, orderBy, query, where } from 'firebase/firestore';
-import { auth, db } from '../../../firebase';
+import { db } from '../../../firebase';
 import { IVideo } from '@/types';
+import { useRecoilValue } from 'recoil';
+import { channelState } from '@/recoil/channel';
 
 const MyVideo = () => {
-  const user = auth.currentUser;
+  const { id: channelId } = useRecoilValue(channelState);
   const { data: videos, size } = useGetSnapshot(
     query(
       collection(db, 'videos'),
-      where('writerId', '==', user?.uid),
+      where('channelId', '==', channelId),
       orderBy('createdAt', 'desc'),
       limit(25),
     ),

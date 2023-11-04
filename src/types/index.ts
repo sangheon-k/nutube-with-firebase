@@ -20,8 +20,8 @@ export interface IVideo {
    */
   id: string;
   views: number;
-  writer: string;
-  writerId: string;
+  channelName: string;
+  channelId: string;
   title: string;
   description: string;
   privacy: string;

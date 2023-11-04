@@ -13,14 +13,14 @@ import { auth, db } from '../../../firebase';
 import { ISubscribe } from '@/types';
 
 interface Props {
-  writerId: string;
+  channelId: string;
 }
 
-const Subscribe = ({ writerId }: Props) => {
+const Subscribe = ({ channelId }: Props) => {
   const user = auth.currentUser;
   const [subsFromMeId, setSubsFromMeId] = useState('');
   const { data: subscribe } = useGetSnapshot(
-    query(collection(db, 'subscribes'), where('channelId', '==', writerId)),
+    query(collection(db, 'subscribes'), where('channelId', '==', channelId)),
   );
 
   const onSubscribe = async () => {
@@ -29,7 +29,7 @@ const Subscribe = ({ writerId }: Props) => {
       const isNotSubscribed = subsFromMeId === '';
       if (isNotSubscribed) {
         await addDoc(collection(db, 'subscribes'), {
-          writerId: writerId,
+          channelId: channelId,
           userId: user?.uid,
           createdAt: Date.now(),
         });

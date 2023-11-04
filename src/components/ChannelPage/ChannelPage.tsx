@@ -1,12 +1,12 @@
 import React from 'react';
 import CreateOne from './CreateOne';
 import ChannelDashBoard from './ChannelDashBoard';
-import useGetChannelInfo from '@/hooks/useGetChannelInfo';
+import { useRecoilValue } from 'recoil';
+import { channelState } from '@/recoil/channel';
 
 const ChannelPage = () => {
-  const { isLoading, channel } = useGetChannelInfo();
+  const channel = useRecoilValue(channelState);
 
-  if (isLoading) return;
   return (
     <>
       {channel.id !== '' ? (
