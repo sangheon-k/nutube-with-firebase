@@ -26,7 +26,7 @@ const useGetSnapshot = (query: any) => {
     };
   }, []);
 
-  return { data: dataMemo };
+  return { data: dataMemo, size: dataMemo.length };
 };
 
 export default useGetSnapshot;
