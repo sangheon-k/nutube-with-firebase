@@ -7,6 +7,8 @@ import { useRouter } from 'next/router';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { addDoc, collection, updateDoc } from 'firebase/firestore';
 import LoadingScreen from '../LoadingScreen/LoadingScreen';
+import { useRecoilValue } from 'recoil';
+import { channelState } from '@/recoil/channel';
 
 const defaultValues = {
   privacy: '0',
@@ -18,6 +20,7 @@ const VideoUploadPage = () => {
   const user = auth.currentUser;
   const router = useRouter();
   const videoRef = useRef(null);
+  const channel = useRecoilValue(channelState);
 
   const [file, setFile] = useState<File | null>(null);
   const [thumbImg, setThumbImg] = useState<File | null>(null);
@@ -57,8 +60,8 @@ const VideoUploadPage = () => {
       const videosCollection = collection(db, 'videos');
       const doc = await addDoc(videosCollection, {
         views: 0,
-        writer: user?.displayName,
-        writerId: user?.uid,
+        channelName: channel.ownerName,
+        channelId: channel.id,
         title,
         description,
         privacy,
