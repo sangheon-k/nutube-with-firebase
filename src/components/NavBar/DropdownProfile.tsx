@@ -3,18 +3,21 @@ import Link from 'next/link';
 import { GrLogout } from 'react-icons/gr';
 import { auth } from '../../../firebase';
 import { useRouter } from 'next/router';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useResetRecoilState } from 'recoil';
 import { toggleProfileState } from '@/recoil/common';
+import { channelState } from '@/recoil/channel';
 
 const DropdownProfile = () => {
   const user = auth.currentUser;
   const router = useRouter();
   const [isProfileOpen, setIsProfileOpen] = useRecoilState(toggleProfileState);
+  const resetChannel = useResetRecoilState(channelState);
 
   const onLogOut = async () => {
     const isConfirmed = confirm('Are you  sure you want to log out?');
     if (isConfirmed) {
       await auth.signOut();
+      resetChannel(); // 채널정보 초기화
       setIsProfileOpen(false);
       router.push('/');
     }

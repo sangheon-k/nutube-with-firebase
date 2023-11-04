@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { auth } from '../../../firebase';
+import { auth, db } from '../../../firebase';
 import GoogleLoginBtn from '../GoogleLoginBtn';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
@@ -8,6 +8,15 @@ import { signInWithEmailAndPassword } from 'firebase/auth';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { FieldValues, useForm } from 'react-hook-form';
+import { useSetRecoilState } from 'recoil';
+import { channelState } from '@/recoil/channel';
+import {
+  DocumentData,
+  collection,
+  getDocs,
+  query,
+  where,
+} from 'firebase/firestore';
 
 const schema = yup
   .object({
@@ -21,6 +30,7 @@ const LoginPage = () => {
   const user = auth.currentUser;
   const router = useRouter();
   const [isLoading, setLoading] = useState(false);
+  const setChannel = useSetRecoilState(channelState);
   const {
     register,
     handleSubmit,
@@ -31,7 +41,21 @@ const LoginPage = () => {
     try {
       setLoading(true);
       const { email, password } = data;
-      await signInWithEmailAndPassword(auth, email, password);
+      const credential = await signInWithEmailAndPassword(
+        auth,
+        email,
+        password,
+      );
+      await getDocs(
+        query(
+          collection(db, 'channels'),
+          where('ownerId', '==', credential.user.uid),
+        ),
+      ).then((querySnapshot) => {
+        querySnapshot.docs.map((doc: DocumentData) => {
+          setChannel({ id: doc.id, ...doc.data() });
+        });
+      });
       router.push('/');
     } catch (e) {
       console.error(e);

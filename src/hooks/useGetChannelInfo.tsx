@@ -35,7 +35,7 @@ const useGetChannelInfo = () => {
     fetchMyChannel(user?.uid);
   }, []);
 
-  return { isLoading };
+  return { isLoading, channel };
 };
 
 export default useGetChannelInfo;
