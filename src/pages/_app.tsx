@@ -1,12 +1,12 @@
-import Head from 'next/head';
-import Layout from '@/components/Layout/Layout';
-import type { AppProps } from 'next/app';
-import '@/styles/globals.css';
+import { useEffect, useState } from 'react';
 import { RecoilRoot } from 'recoil';
 import { QueryClient, QueryClientProvider } from 'react-query';
-import { auth } from '../../firebase';
-import { useEffect, useState } from 'react';
+import Head from 'next/head';
+import Layout from '@/components/Layout/Layout';
 import LoadingScreen from '@/components/LoadingScreen/LoadingScreen';
+import { auth } from '../../firebase';
+import type { AppProps } from 'next/app';
+import '@/styles/globals.css';
 
 const queryClient = new QueryClient();
 
