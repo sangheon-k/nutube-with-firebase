@@ -1,11 +1,10 @@
 import React from 'react';
 import Image from 'next/image';
 import LinkIcon from '@/assets/ico_link.svg';
-
-import { IChannel } from '@/types';
+import { DocumentData } from 'firebase/firestore';
 
 interface Props {
-  channel: IChannel;
+  channel: DocumentData;
 }
 
 const ChannelProfile = ({ channel }: Props) => {

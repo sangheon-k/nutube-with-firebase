@@ -19,6 +19,7 @@ interface Props {
 const VideoDetailPage = ({ video }: Props) => {
   const { id: channelId } = useRecoilValue(channelState);
   const isMyChannel = video.channelId === channelId;
+  const isLoggedIn = channelId !== '';
 
   return (
     <div className="flex flex-col w-full h-full overflow-y-auto md:flex-row">
@@ -47,7 +48,9 @@ const VideoDetailPage = ({ video }: Props) => {
               <span className="text-2xl md:text-3xl">{video.title}</span>
               <span className="flex items-center gap-4">
                 <LikeDisLike videoId={video.id} />
-                {!isMyChannel && <Subscribe channelId={video.channelId} />}
+                {!isMyChannel && isLoggedIn && (
+                  <Subscribe channelId={video.channelId} />
+                )}
               </span>
             </h2>
 

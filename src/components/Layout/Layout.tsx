@@ -12,7 +12,7 @@ interface LayoutProps {
 const Layout = ({ children }: LayoutProps) => {
   const { isLoading } = useGetChannelInfo();
   const channel = useRecoilValue(channelState);
-  console.log(channel);
+  console.log('Layout MyChannel Info', channel);
 
   return (
     <div className="h-full">

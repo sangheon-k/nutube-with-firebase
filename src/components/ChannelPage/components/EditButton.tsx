@@ -1,13 +1,16 @@
 import React from 'react';
-import { useRouter } from 'next/router';
 import { useRecoilValue } from 'recoil';
 import { channelState } from '@/recoil/channel';
 
-const EditButton = () => {
-  const router = useRouter();
-  const pathId = router.query.id;
+interface Props {
+  channelId: string;
+}
+
+const EditButton = ({ channelId }: Props) => {
   const { ownerId } = useRecoilValue(channelState);
-  const isMyChannel = pathId === ownerId;
+  const isMyChannel = channelId === ownerId;
+
+  console.log(ownerId, channelId);
 
   return (
     <>

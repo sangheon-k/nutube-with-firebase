@@ -1,20 +1,40 @@
 import React from 'react';
-import MyVideo from '../MyVideo/MyVideo';
+import { useRouter } from 'next/router';
 import { IChannel } from '@/types';
-import { useRecoilValue } from 'recoil';
-import { toggleMyChannelState } from '@/recoil/common';
 
 import Banner from './components/Banner';
 import Avatar from './components/Avatar';
 import Profile from './components/Profile';
 import EditButton from './components/EditButton';
+import VideoList from '../common/VideoList';
+
+import useGetSnapshot from '@/hooks/useGetSnapshot';
+import { db } from '../../../firebase';
+import {
+  DocumentData,
+  collection,
+  limit,
+  orderBy,
+  query,
+  where,
+} from 'firebase/firestore';
 
 interface Props {
-  channel: IChannel;
+  channel: DocumentData;
 }
 
 const ChannelDashBoard = ({ channel }: Props) => {
-  const isMyChannel = useRecoilValue(toggleMyChannelState);
+  const router = useRouter();
+  const pathId = router.query.id;
+  const { data: channelVideos, size } = useGetSnapshot(
+    query(
+      collection(db, 'videos'),
+      where('channelId', '==', pathId),
+      orderBy('createdAt', 'desc'),
+      limit(25),
+    ),
+  );
+
   return (
     <div className="w-full overflow-y-auto">
       <div className="">
@@ -22,13 +42,20 @@ const ChannelDashBoard = ({ channel }: Props) => {
         <div className="relative flex flex-col gap-6 px-6 py-6 pt-8 md:px-40 md:flex-row">
           <Avatar photoUrl={channel.ownerPhotoUrl} />
           <Profile channel={channel} />
-          <EditButton />
+          <EditButton channelId={channel.id} />
         </div>
       </div>
       <hr className="border-gray-300" />
       <div className="md:px-40">
-        <h2 className="px-6 pt-6 text-2xl font-semibold">My Video</h2>
-        <MyVideo />
+        <div className="p-4">
+          {size > 0 ? (
+            <VideoList videos={channelVideos} />
+          ) : (
+            <p className="px-2 text-gray-500">
+              업로드된 영상이 없습니다. 영상을 업로드해주세요.
+            </p>
+          )}
+        </div>
       </div>
     </div>
   );

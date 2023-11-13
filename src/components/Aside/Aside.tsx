@@ -1,6 +1,6 @@
 import React, { useLayoutEffect } from 'react';
 import Link from 'next/link';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import {
   FcHome,
   FcSettings,
@@ -8,12 +8,12 @@ import {
   FcBusinessman,
   FcClapperboard,
 } from 'react-icons/fc';
-import { auth } from '../../../firebase';
 import { isMobile } from 'react-device-detect';
 import { toggleAsideState } from '@/recoil/common';
+import { channelState } from '@/recoil/channel';
 
 const Aside = () => {
-  const user = auth.currentUser;
+  const { id: channelId } = useRecoilValue(channelState);
   const [isAsideOpen, setIsAsideOpen] = useRecoilState(toggleAsideState);
 
   useLayoutEffect(() => {
@@ -31,10 +31,10 @@ const Aside = () => {
           <div className="p-3 space-y-2">
             {ASIDE_MENU_LIST.map((item) => {
               if (item.auth) {
-                return user ? (
+                return (
                   <Link
                     key={item.id}
-                    href={item.id === 3 ? `${item.url}/${user.uid}` : item.url}
+                    href={item.id === 3 ? `${item.url}/${channelId}` : item.url}
                     className={`flex items-center px-2 py-3 space-x-2 rounded-md hover:bg-gray-100 hover:text-blue-600 ${
                       isMobile && 'text-xl py-5'
                     }`}
@@ -43,7 +43,7 @@ const Aside = () => {
                     <span className="text-2xl">{item.icons}</span>
                     <span>{item.title}</span>
                   </Link>
-                ) : null;
+                );
               }
 
               return (
