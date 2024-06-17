@@ -33,18 +33,23 @@ const NavBar = () => {
 
       <div className="relative flex items-center gap-4">
         {user ? (
-          <button
-            type="button"
-            onClick={handleProfileClick}
-            className="overflow-hidden align-top rounded-full h-9 w-9"
-          >
-            <Image
-              src="https://plchldr.co/i/40x40?text=T"
-              alt="Avatar"
-              width={40}
-              height={40}
-            />
-          </button>
+          <>
+            <Link href="/video/upload" className="mr-2">
+              Upload
+            </Link>
+            <button
+              type="button"
+              onClick={handleProfileClick}
+              className="overflow-hidden align-top rounded-full h-9 w-9"
+            >
+              <Image
+                src="https://plchldr.co/i/40x40?text=T"
+                alt="Avatar"
+                width={40}
+                height={40}
+              />
+            </button>
+          </>
         ) : (
           <>
             <Link href="/login" className="mr-2">
