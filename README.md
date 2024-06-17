@@ -4,7 +4,7 @@
 yarn dev
 ```
 
-url : https://nutube.shop/
+url : [https://nutube.shop/](https://nutube-video.web.app/)
 
 <br />
 
