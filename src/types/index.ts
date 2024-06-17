@@ -31,6 +31,7 @@ export interface IVideo {
   thumbnail: string;
   createdAt: Date;
   updatedAt: Date;
+  writer: string;
 }
 
 export interface ILike {
