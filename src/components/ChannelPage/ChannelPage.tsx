@@ -20,18 +20,13 @@ const ChannelPage = () => {
     }
   };
 
-  console.log('Channel Page Info', channel);
-
   useEffect(() => {
-    console.log(pathId);
-
     getChannelInfo(pathId);
   }, [pathId]);
 
-  if (!channel) return;
   return (
     <>
-      {channel.id !== '' ? (
+      {channel && channel?.id !== '' ? (
         <ChannelDashBoard channel={channel} />
       ) : (
         <CreateOne />
