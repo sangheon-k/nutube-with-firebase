@@ -4,7 +4,7 @@
 yarn dev
 ```
 
-url : [https://nutube.shop/](https://nutube-video.web.app/)
+url : [https://nutube-video.web.app/](https://nutube-video.web.app/)
 
 <br />
 
@@ -33,8 +33,10 @@ Q2. scss / tailwind / styled-component
 
 # CI/CD
 
-Github Actions & AWS S3 - CLI
+Firebase
+
+<!-- Github Actions & AWS S3 - CLI
 
 ```bash
 develop -> rc
-```
+``` -->
