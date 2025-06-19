@@ -7,6 +7,7 @@ import {
   FcLikePlaceholder,
   FcBusinessman,
   FcClapperboard,
+  FcUpload,
 } from 'react-icons/fc';
 import { isMobile } from 'react-device-detect';
 import { toggleAsideState } from '@/recoil/common';
@@ -76,13 +77,13 @@ export default Aside;
 
 const ASIDE_MENU_LIST = [
   { id: 0, title: 'Home', url: '/', auth: false, icons: <FcHome /> },
-  {
-    id: 1,
-    title: 'Likes',
-    url: '/likes',
-    auth: true,
-    icons: <FcLikePlaceholder />,
-  },
+  // {
+  //   id: 1,
+  //   title: 'Likes',
+  //   url: '/likes',
+  //   auth: true,
+  //   icons: <FcLikePlaceholder />,
+  // },
   {
     id: 2,
     title: 'Subscription',
@@ -99,9 +100,16 @@ const ASIDE_MENU_LIST = [
   },
   {
     id: 4,
-    title: 'Setting',
-    url: '/setting',
-    auth: false,
-    icons: <FcSettings />,
+    title: 'Upload',
+    url: '/video/upload',
+    auth: true,
+    icons: <FcUpload />,
   },
+  // {
+  //   id: 5,
+  //   title: 'Setting',
+  //   url: '/setting',
+  //   auth: false,
+  //   icons: <FcSettings />,
+  // },
 ];

@@ -1,15 +1,40 @@
 import React from 'react';
 import Image from 'next/image';
 import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
-import { auth } from '../../firebase';
+import { auth, db } from '../../firebase';
 import { useRouter } from 'next/router';
+import { useSetRecoilState } from 'recoil';
+import { channelState } from '@/recoil/channel';
+import {
+  DocumentData,
+  collection,
+  getDocs,
+  query,
+  where,
+} from 'firebase/firestore';
 
 const GoogleLoginBtn = () => {
   const router = useRouter();
+  const setChannel = useSetRecoilState(channelState);
+
+  const fetchMyChannel = async (userId: string | undefined) => {
+    try {
+      const querySnapshot = await getDocs(
+        query(collection(db, 'channels'), where('ownerId', '==', userId)),
+      );
+      querySnapshot.docs.map((doc: DocumentData) => {
+        setChannel({ id: doc.id, ...doc.data() });
+      });
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
   const onGoogleLogin = async () => {
     try {
       const provider = new GoogleAuthProvider();
-      await signInWithPopup(auth, provider);
+      const res = await signInWithPopup(auth, provider);
+      await fetchMyChannel(res.user.uid);
       router.push('/');
     } catch (e) {
       console.error(e);

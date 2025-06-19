@@ -16,6 +16,9 @@ import {
 } from 'firebase/firestore';
 import useGetSnapshot from '@/hooks/useGetSnapshot';
 import { IDisLike, ILike } from '@/types';
+import { useRecoilValue } from 'recoil';
+import { channelState } from '@/recoil/channel';
+import { message } from 'antd';
 
 interface Props {
   videoId: string;
@@ -23,10 +26,12 @@ interface Props {
 
 const LikeDisLike = ({ videoId }: Props) => {
   const user = auth.currentUser;
+  const { id: channelId } = useRecoilValue(channelState);
   const [likeAction, setLikeAction] = useState(false);
   const [disLikeAction, setDisLikeAction] = useState(false);
   const [likeFromMeId, setLikeFromMeId] = useState('');
   const [disLikeFromMeId, setDisLikeFromMeId] = useState('');
+  const isLoggedIn = channelId !== '';
 
   const { data: like } = useGetSnapshot(
     query(collection(db, 'likes'), where('videoId', '==', videoId)),
@@ -39,6 +44,7 @@ const LikeDisLike = ({ videoId }: Props) => {
   console.log('disLike', disLike);
 
   const onLikeClick = async () => {
+    if (!isLoggedIn) return message.error('로그인이 필요합니다.');
     try {
       if (!likeAction) {
         await addLIkeDisLikeDoc('likes', setLikeAction); // Like 추가
@@ -65,6 +71,7 @@ const LikeDisLike = ({ videoId }: Props) => {
   };
 
   const onDisLikeClick = async () => {
+    if (!isLoggedIn) return message.error('로그인이 필요합니다.');
     try {
       if (!disLikeAction) {
         await addLIkeDisLikeDoc('dislikes', setDisLikeAction); // DisLike 추가

@@ -14,7 +14,7 @@ const DropdownProfile = () => {
   const resetChannel = useResetRecoilState(channelState);
 
   const onLogOut = async () => {
-    const isConfirmed = confirm('Are you  sure you want to log out?');
+    const isConfirmed = confirm('로그아웃 하시겠습니까?');
     if (isConfirmed) {
       await auth.signOut();
       resetChannel(); // 채널정보 초기화
