@@ -3,6 +3,8 @@ import Image from 'next/image';
 import { formatDistanceToNow } from 'date-fns';
 import { ko } from 'date-fns/locale';
 import { IVideo } from '@/types';
+import { useState } from 'react';
+import { Skeleton } from 'antd';
 
 interface VideoProps {
   video: IVideo;
@@ -11,6 +13,7 @@ interface VideoProps {
 
 const VideoCard = ({ video, vertical }: VideoProps) => {
   const duration = Math.floor(video.duration);
+  const [isLoading, setIsLoading] = useState(true);
 
   return (
     <div
@@ -21,22 +24,29 @@ const VideoCard = ({ video, vertical }: VideoProps) => {
       <Link
         href={`/video/${video.id}`}
         className="relative block overflow-hidden rounded-lg "
+        style={{ aspectRatio: '15/9' }}
       >
+        {isLoading && (
+          <Skeleton.Node
+            active={true}
+            style={{ width: '100vw', height: '100vh' }}
+          />
+        )}
         <Image
-          className={`w-full ${vertical && 'max-w-[158px]'}`}
           src={
             video.thumbnail ||
             'https://i.ytimg.com/vi/qew27BNl7io/maxresdefault.jpg'
           }
-          width={200}
-          height={100}
+          fill
+          style={{ objectFit: 'cover' }}
           alt="img"
+          onLoadingComplete={() => setIsLoading(false)}
         />
         {/* <div className="absolute top-0 right-0 p-1 px-2 m-1 text-xs font-bold text-gray-200 bg-red-500 rounded badge">
           Live
         </div> */}
         <div className="absolute top-0 right-0 p-1 px-2 m-1 text-xs font-bold text-white bg-black bg-opacity-50	 rounded md:p-[3px] xl:px-2 ">
-          {`00:${duration}` || '00:00'}
+          {`00:${duration < 10 ? '0' + duration : duration}` || '00:00'}
         </div>
       </Link>
 

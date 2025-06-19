@@ -9,7 +9,7 @@ const HomePage = () => {
   );
 
   return (
-    <main className="px-2 overflow-y-auto md:p-8">
+    <main className="flex-auto px-2 overflow-y-auto md:p-8">
       <VideoList videos={videos} />
     </main>
   );
