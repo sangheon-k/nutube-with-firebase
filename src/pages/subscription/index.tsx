@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { auth, db } from '../../../firebase';
+import { Typography } from 'antd';
 import {
   collection,
   getDocs,
@@ -8,11 +9,9 @@ import {
   query,
   where,
 } from 'firebase/firestore';
-import useGetSnapshot from '@/hooks/useGetSnapshot';
-import { useEffect, useState } from 'react';
 import { ISubscribe } from '@/types';
+import useGetSnapshot from '@/hooks/useGetSnapshot';
 import VideoList from '@/components/common/VideoList';
-import Title from 'antd/es/typography/Title';
 
 const SubscriptionPage = () => {
   const user = auth.currentUser;
@@ -56,7 +55,7 @@ const SubscriptionPage = () => {
 
   return (
     <div className="flex-auto px-2 overflow-y-auto md:p-8">
-      <Title level={4}>Subscribe Videos</Title>
+      <Typography.Title level={4}>Subscribe Videos</Typography.Title>
       <div>
         {videos.length > 0 ? (
           <VideoList videos={videos} />
