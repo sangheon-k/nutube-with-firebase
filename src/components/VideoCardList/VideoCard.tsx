@@ -23,8 +23,10 @@ const VideoCard = ({ video, vertical }: VideoProps) => {
     >
       <Link
         href={`/video/${video.id}`}
-        className="relative block overflow-hidden rounded-lg "
-        style={{ aspectRatio: '15/9' }}
+        className={`relative block overflow-hidden rounded-lg aspect-[15/9] ${
+          vertical && 'max-w-[147px] w-full'
+        }`}
+        // style={{ aspectRatio: '15/9' }}
       >
         {isLoading && (
           <Skeleton.Node
