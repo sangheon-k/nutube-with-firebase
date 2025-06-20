@@ -1,14 +1,16 @@
+import Head from 'next/head';
+import type { AppProps } from 'next/app';
 import { useEffect, useState } from 'react';
 import { RecoilRoot } from 'recoil';
 import { QueryClient, QueryClientProvider } from 'react-query';
-import Head from 'next/head';
+import { auth } from '../../firebase';
+import { message } from 'antd';
 import Layout from '@/components/Layout/Layout';
 import LoadingScreen from '@/components/LoadingScreen/LoadingScreen';
-import { auth } from '../../firebase';
-import type { AppProps } from 'next/app';
 import '@/styles/globals.css';
 
 const queryClient = new QueryClient();
+message.config({ maxCount: 2 });
 
 export default function App({ Component, pageProps }: AppProps) {
   const [isLoading, setLoading] = useState(true);

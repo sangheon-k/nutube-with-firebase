@@ -17,6 +17,8 @@ import {
   query,
   where,
 } from 'firebase/firestore';
+import { message } from 'antd';
+import Cookies from 'js-cookie';
 
 const schema = yup
   .object({
@@ -46,6 +48,8 @@ const LoginPage = () => {
         email,
         password,
       );
+      console.log('일반로그인 credential', credential);
+
       await getDocs(
         query(
           collection(db, 'channels'),
@@ -56,8 +60,11 @@ const LoginPage = () => {
           setChannel({ id: doc.id, ...doc.data() });
         });
       });
+      Cookies.set('uid', credential.user.uid);
       router.push('/');
-    } catch (e) {
+    } catch (e: any) {
+      if (e.message.includes('auth/invalid-login'))
+        message.error('로그인 정보가 일치하지 않습니다. 다시 확인해주세요');
       console.error(e);
     } finally {
       setLoading(false);

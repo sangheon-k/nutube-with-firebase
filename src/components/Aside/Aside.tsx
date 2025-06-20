@@ -3,8 +3,6 @@ import Link from 'next/link';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import {
   FcHome,
-  FcSettings,
-  FcLikePlaceholder,
   FcBusinessman,
   FcClapperboard,
   FcUpload,
@@ -12,10 +10,14 @@ import {
 import { isMobile } from 'react-device-detect';
 import { toggleAsideState } from '@/recoil/common';
 import { channelState } from '@/recoil/channel';
+import { useAuth } from '@/hooks/useAuth';
+import { message } from 'antd';
 
 const Aside = () => {
   const { id: channelId } = useRecoilValue(channelState);
   const [isAsideOpen, setIsAsideOpen] = useRecoilState(toggleAsideState);
+  const { isLoggedIn } = useAuth();
+  const authPages = ['/subscription', '/channel'];
 
   useLayoutEffect(() => {
     setIsAsideOpen(!isMobile);
@@ -39,7 +41,13 @@ const Aside = () => {
                     className={`flex items-center px-2 py-3 space-x-2 rounded-md hover:bg-gray-100 hover:text-blue-600 ${
                       isMobile && 'text-xl py-5'
                     }`}
-                    onClick={() => setIsAsideOpen(isMobile ? false : true)}
+                    onClick={(e) => {
+                      setIsAsideOpen(isMobile ? false : true);
+                      if (authPages.includes(item.url) && !isLoggedIn) {
+                        e.preventDefault();
+                        message.info('로그인 후 이용 가능합니다');
+                      }
+                    }}
                   >
                     <span className="text-2xl">{item.icons}</span>
                     <span>{item.title}</span>

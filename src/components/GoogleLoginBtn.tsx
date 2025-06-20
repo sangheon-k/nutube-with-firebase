@@ -12,6 +12,7 @@ import {
   query,
   where,
 } from 'firebase/firestore';
+import Cookies from 'js-cookie';
 
 const GoogleLoginBtn = () => {
   const router = useRouter();
@@ -34,6 +35,7 @@ const GoogleLoginBtn = () => {
     try {
       const provider = new GoogleAuthProvider();
       const res = await signInWithPopup(auth, provider);
+      Cookies.set('uid', res.user.uid);
       await fetchMyChannel(res.user.uid);
       router.push('/');
     } catch (e) {

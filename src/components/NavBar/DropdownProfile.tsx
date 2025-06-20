@@ -6,6 +6,7 @@ import { useRouter } from 'next/router';
 import { useRecoilState, useResetRecoilState } from 'recoil';
 import { toggleProfileState } from '@/recoil/common';
 import { channelState } from '@/recoil/channel';
+import Cookies from 'js-cookie';
 
 const DropdownProfile = () => {
   const user = auth.currentUser;
@@ -19,6 +20,7 @@ const DropdownProfile = () => {
       await auth.signOut();
       resetChannel(); // 채널정보 초기화
       setIsProfileOpen(false);
+      Cookies.remove('uid');
       router.push('/');
     }
   };

@@ -56,7 +56,7 @@ const SubscriptionPage = () => {
 
   return (
     <div className="flex-auto px-2 overflow-y-auto md:p-8">
-      <Title>Subscribe</Title>
+      <Title level={4}>Subscribe Videos</Title>
       <div>
         {videos.length > 0 ? (
           <VideoList videos={videos} />
