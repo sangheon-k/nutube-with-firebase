@@ -43,6 +43,7 @@ const VideoCard = ({ video, vertical }: VideoProps) => {
           style={{ objectFit: 'cover' }}
           alt="img"
           onLoadingComplete={() => setIsLoading(false)}
+          priority={false}
         />
         {/* <div className="absolute top-0 right-0 p-1 px-2 m-1 text-xs font-bold text-gray-200 bg-red-500 rounded badge">
           Live
